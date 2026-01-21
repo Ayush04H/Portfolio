@@ -8,7 +8,7 @@ const Experience = () => {
             company: 'Street Surge',
             role: 'Software Development Engineer',
             period: 'Feb 2025 - Present',
-            location: 'Pune, India'
+            location: 'Gurgaon, India'
         },
         {
             company: 'CereLabs',
