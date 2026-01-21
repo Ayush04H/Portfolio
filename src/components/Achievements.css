@@ -1,0 +1,141 @@
+.achievements {
+    background: var(--color-bg-secondary);
+}
+
+.achievements-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-3xl);
+}
+
+.achievement-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(10px);
+}
+
+.achievement-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
+}
+
+.achievement-icon {
+    display: inline-flex;
+    margin-bottom: var(--spacing-md);
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--radius-lg);
+    color: var(--color-accent-primary);
+}
+
+.achievement-title {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+}
+
+.achievement-description {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.certifications-section {
+    margin-top: var(--spacing-3xl);
+}
+
+.certifications-title {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--color-text-primary);
+}
+
+.certifications-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.certification-card {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    backdrop-filter: blur(10px);
+}
+
+.certification-card:hover {
+    border-color: var(--color-accent-primary);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.cert-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex: 1;
+}
+
+.cert-icon {
+    color: var(--color-accent-primary);
+    flex-shrink: 0;
+}
+
+.cert-name {
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.cert-issuer {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.cert-link-icon {
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: color var(--transition-base);
+}
+
+.certification-card:hover .cert-link-icon {
+    color: var(--color-accent-primary);
+}
+
+@media (max-width: 768px) {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .certifications-list {
+        grid-template-columns: 1fr;
+    }
+
+    .certification-card {
+        padding: var(--spacing-md);
+    }
+
+    .cert-name {
+        font-size: 1rem;
+    }
+}

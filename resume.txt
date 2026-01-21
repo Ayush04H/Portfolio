@@ -1,0 +1,292 @@
+%-------------------------
+% Resume in Latex
+% Author : Ayush Srivastava
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{graphicx}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
+
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+\RequirePackage{fontawesome}
+\usepackage{tikz}
+\usetikzlibrary{svg.path}
+
+
+\definecolor{cvblue}{HTML}{0E5484}
+\definecolor{black}{HTML}{130810}
+\definecolor{darkcolor}{HTML}{0F4539}
+\definecolor{cvgreen}{HTML}{3BD80D}
+\definecolor{taggreen}{HTML}{00E278}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{name}{black}
+\colorlet{tagline}{darkcolor}
+\colorlet{heading}{darkcolor}
+\colorlet{headingrule}{cvblue}
+\colorlet{accent}{darkcolor}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+% \pagestyle{fancy}
+% \fancyhf{}  % clear all header and footer fields
+% \fancyfoot{}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{\large#1} & \textbf{\small #2} \\
+      \textit{\large#3} & \textit{\small #4} \\
+      
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+
+\newcommand\sbullet[1][.5]{\mathbin{\vcenter{\hbox{\scalebox{#1}{$\bullet$}}}}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+
+
+\begin{center}
+    {\Huge \scshape AYUSH KUMAR SRIVASTAVA} \\ \vspace{1pt}
+    
+    \small \href{tel:#}{ \raisebox{-0.1\height}\faPhone\ \underline{+91-9162853387} ~} \href{mailto:ayush050419@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{ayush050419@gmail.com}} ~ 
+    \href{http://www.linkedin.com/in/ayush-srivastava-aks04102002}{\raisebox{-0.2\height}\faLinkedinSquare\ \underline{Linkedin}}  ~
+    \href{https://github.com/Ayush04H}{\raisebox{-0.2\height}\faGithub\ \underline{Github}} ~
+\end{center}
+ \vspace{0.00000000000003mm}
+
+
+
+
+%-----------EDUCATION-----------
+\section{EDUCATION}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Bharati Vidyapeeth's College of Engineering,Pune}{09/2021 – 06/2025}
+      {Bachelor's of Technology - Information Technology \textbf{}  \textbf{}}{CGPA - 8.90}
+  \resumeSubHeadingListEnd
+  
+  %\resumeSubHeadingListStart
+   % \resumeSubheading
+    %    {Dbms Kadma High School}{04 2006 -- 05 2021}
+     %  {10th \& 12th - \textbf{Percentage} - \textbf{90.6\% \& 78.8\%}}{Jamshedpur,Jharkhand}
+    %\resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------
+ \section{WORK EXPERIENCE}
+   \resumeSubHeadingListStart
+
+ \resumeSubheading
+    {Street Surge}{02/2025 - Present} 
+    {\underline{\textbf{Software Development Engineer}}}{Pune, India}
+    \resumeItemListStart
+     \vspace{1pt}
+       \resumeItem{\normalsize{Designed and built a custom VRP (Vehicle Routing Problem) Solver then deployed that solver into production as an
+optimised fleet logistics solution reducing travel \textbf{distance by 20\%}}}
+       \resumeItem{\normalsize{Enhanced and trained a YOLO object detection model for real-time traffic monitoring with a \textbf{95\% detection} rate in dense urban environments. }}
+       \resumeItem{\normalsize{Delivered a set of internal business tools using a Django \& RestAPI Framework to automate and streamline the manual data workflow which reduced overall business operations turnaround \textbf{time by 40\%}. }}
+    \resumeItemListEnd
+
+ \resumeSubheading
+    {CereLabs  \href{https://drive.google.com/file/d/1GR74Bhv_vYT7o88zTCVZ5rCbCvs34UYL/view?usp=sharing}{\raisebox{-0.1\height}\faExternalLink }}{06/2024 - 08/2024} 
+    {\underline{\textbf{Software Engineer Intern}}}{Mumbai, India}
+    \resumeItemListStart
+     \vspace{1pt}
+       \resumeItem{\normalsize{Automated evaluation pipeline using \textbf{GTE Large}, \textbf{GPT-4}, and \textbf{OLLAMA}, processing 1,000+ samples and has led to an increase in evaluation  efficiency by \textbf{40\%}.}}
+    \resumeItemListEnd
+
+
+\resumeSubheading
+    {OziBook \href{https://drive.google.com/file/d/1Xn3Ja0fI_-kOlYTM8a5zHolHVNoMo2Fw/view?usp=sharing}{\raisebox{-0.1\height}\faExternalLink }}{01/2024 - 03/2024}
+    {\underline{\textbf{Data Analyst Intern}}}{Bengaluru, India}
+    \resumeItemListStart
+     \vspace{1pt}
+\resumeItem{\normalsize{Optimized web scraping algorithm, increasing data accuracy by \textbf{25\%} and reduce manual data collection \textbf{time by 15 hours }weekly\textbf{.} }}
+    \resumeItemListEnd
+
+
+       
+    
+\resumeSubHeadingListEnd
+
+ \vspace{-10pt}
+
+ 
+%-----------PROJECTS-----------
+\section{PROJECTS}
+    \vspace{-5pt}
+    \resumeSubHeadingListStart
+    \resumeProjectHeading
+    {\href{https://loan-predication-ayush04h.streamlit.app/}{\textbf{\large{\underline{Loan Prediction App}}} \href{Project Link}{\raisebox{-0.1\height}\faExternalLink }} $|$ \large{\underline{\textbf{Python , Machine Learning, FastAPI, Streamlit, Docker}}}}\\
+    \vspace{-8pt}
+    \resumeItemListStart
+       \resumeItem{\normalsize{Developed a machine learning pipeline for loan status prediction, achieving \textbf{85\%} accuracy.}}
+\resumeItem{\normalsize{Refined the \textbf{pipeline to process predictions} in \textbf{0.02} seconds per record, ensuring high reliability under load.}}
+\resumeItem{\normalsize{Created a FastAPI Endpoint model with a Streamlit interface, supporting \textbf{20 users} and \textbf{sub-100 ms} response times.}}
+
+
+
+
+    \resumeItemListEnd
+    \vspace{-15pt}
+
+
+
+
+              \resumeProjectHeading
+    {\href{https://github.com/Ayush04H/LLM-Doc-Summarizer}{\textbf{\large{\underline{LLM-Doc-Summarizer}}} \href{Project Link}{\raisebox{-0.1\height}\faExternalLink }} $|$ \large{\underline{\textbf{Python, React, GenAI, FastAPI,Docker,Github Workflows }}}}\\
+\resumeItemListStart
+    \resumeItem{\normalsize{Built a document summarization app using \textbf{facebook/bart-large-cnn}, enabling \textbf{real-time .docx processing} with customizable summary lengths.}}
+\resumeItem{\normalsize{Generated backend with FastAPI, \textbf{reducing summary generation time by} \textbf{50\%}.}}
+\resumeItem{\normalsize{Enhanced user experience with React, cutting load times by \textbf{30\%}, and ensured \textbf{99.9\%} uptime with robust error handling.}}
+
+\resumeItemListEnd
+\vspace{-5pt}
+
+    
+          
+    \resumeSubHeadingListEnd
+\vspace{-2pt}
+
+%
+\section{SKILLS}
+   \resumeSubHeadingListStart
+    \resumeItemListStart
+        \resumeItem{\textbf{\normalsize{Languages:}} \normalsize{Python, Java, C++}}
+        \resumeItem{\textbf{\normalsize{Technologies/Frameworks:}} \normalsize{HTML5, CSS3, Flask, FastAPI / RestAPI, Django, React, Streamlit}}
+        \resumeItem{\textbf{\normalsize{Data Science:}} \normalsize{Machine Learning, PyTorch, TensorFlow, LLM, ETL, Gen AI, OpenCV}}
+        \resumeItem{\textbf{\normalsize{DevOps:}} \normalsize{GitHub Actions, Docker, Kubernetes, Jenkins, MLflow}}
+        \resumeItem{\textbf{\normalsize{Cloud:}} \normalsize{AWS , GCP (BigQuery, Bucket)}}
+        \resumeItem{\textbf{\normalsize{Database:}} \normalsize{MySQL, MongoDB , Amazon RDS}}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+
+%-----------CERTIFICATIONS---------------
+\section{CERTIFICATIONS}
+
+$\sbullet[.75] \hspace{0.1cm}$ {\href{https://coursera.org/share/982cbbdd0a3455f86ccc34eb4f06559b}{Database Structures and Management with MySQL}} \hspace{2.59cm}\\
+
+$\sbullet[.75] \hspace{0.1cm}$ {\href{}{\href{https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aiops/}{MLOps Bootcamp}  
+}} \hspace{1.6cm}\\
+
+
+
+
+\section{ACHIEVEMENTS}
+    \resumeSubHeadingListStart
+       
+        
+        \resumeItemListStart
+            \resumeItem{\normalsize{EPST Head \& Active Member, ITSA (Information Technology Students' Association)}}
+            \resumeItem{\normalsize{Finalist in the ACES Coding Challenge, ranking among the top competitors out of over 250 students.}}
+            \resumeItem{\normalsize{\textbf{Competed} in over 10 volleyball tournaments, winning \textbf{3 gold medals}, \textbf{1 silver}, and \textbf{2 personal awards}.}}
+            \resumeItem{\normalsize{Cleared Group Stages of AICTE Computer Science Hackathon}}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+ \vspace{-20pt}
+
+ 
+ 
+\end{document}

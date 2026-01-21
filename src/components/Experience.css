@@ -1,0 +1,150 @@
+.experience {
+    background: var(--color-bg-secondary);
+}
+
+.timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--gradient-primary);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: var(--spacing-3xl);
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2.5rem;
+    top: 0.5rem;
+    width: 16px;
+    height: 16px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    border: 3px solid var(--color-bg-secondary);
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+}
+
+.timeline-content {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    margin-left: var(--spacing-lg);
+    transition: all var(--transition-base);
+    backdrop-filter: blur(10px);
+}
+
+.timeline-content:hover {
+    border-color: var(--color-accent-primary);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.experience-header {
+    margin-bottom: var(--spacing-lg);
+}
+
+.experience-title-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.company-name {
+    font-size: 1.6rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.role-title {
+    font-size: 1.1rem;
+    color: var(--color-accent-primary);
+    font-weight: 600;
+    margin: 0;
+}
+
+.experience-meta {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.meta-item svg {
+    color: var(--color-accent-primary);
+}
+
+.achievements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.achievement-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+}
+
+.achievement-item:last-child {
+    margin-bottom: 0;
+}
+
+.achievement-item::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-primary);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-marker {
+        left: -2rem;
+    }
+
+    .timeline-content {
+        margin-left: var(--spacing-md);
+    }
+
+    .timeline-content:hover {
+        transform: translateX(5px);
+    }
+
+    .experience-meta {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .company-name {
+        font-size: 1.3rem;
+    }
+}
