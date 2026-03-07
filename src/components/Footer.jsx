@@ -35,6 +35,7 @@ const Footer = () => {
 
     return (
         <footer className="footer">
+            <div className="footer-bg" style={{ backgroundImage: "url('/footer-bg.png')" }}></div>
             <div className="footer-decorative-top">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0,0 C300,80 600,40 900,60 C1050,70 1150,100 1200,120 L1200,0 L0,0 Z" fill="url(#footerGradient)"></path>

@@ -13,6 +13,7 @@ const Education = () => {
 
                 <div className="education-content">
                     <div className="education-card">
+                        <div className="education-card-bg" style={{ backgroundImage: "url('/education-bg.png')" }}></div>
                         <div className="education-icon">
                             <GraduationCap size={40} />
                         </div>

@@ -40,6 +40,7 @@ const Experience = () => {
                         <div key={index} className="timeline-item">
                             <div className="timeline-marker"></div>
                             <div className="timeline-content">
+                                <div className="experience-card-bg" style={{ backgroundImage: "url('/education-bg.png')" }}></div>
                                 <div className="experience-header">
                                     <div className="experience-title-group">
                                         <h3 className="company-name">{exp.company}</h3>

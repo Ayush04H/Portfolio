@@ -43,6 +43,7 @@ const Skills = () => {
                 <div className="skills-grid">
                     {skillCategories.map((category, index) => (
                         <div key={index} className="skill-category">
+                            <div className="skill-category-bg" style={{ backgroundImage: "url('/skills-bg.png')" }}></div>
                             <h3 className="category-title">{category.category}</h3>
                             <div className="skills-list">
                                 {category.skills.map((skill, skillIndex) => (

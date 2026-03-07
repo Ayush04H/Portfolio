@@ -42,7 +42,7 @@
     justify-content: center;
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #667eea20, #764ba220);
+    background: linear-gradient(135deg, rgba(255, 94, 108, 0.2), rgba(254, 179, 0, 0.2));
     border-radius: var(--radius-xl);
     color: var(--color-accent-primary);
     flex-shrink: 0;
@@ -51,7 +51,31 @@
 
 .education-card:hover .education-icon {
     transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, #667eea30, #764ba230);
+    background: linear-gradient(135deg, rgba(255, 94, 108, 0.3), rgba(254, 179, 0, 0.3));
+}
+
+.education-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+.education-card:hover .education-card-bg {
+    opacity: 0.12;
+}
+
+.education-icon,
+.education-details {
+    position: relative;
+    z-index: 1;
 }
 
 .education-details {

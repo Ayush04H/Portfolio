@@ -49,12 +49,38 @@
     margin-left: var(--spacing-lg);
     transition: all var(--transition-base);
     backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
 }
 
 .timeline-content:hover {
     border-color: var(--color-accent-primary);
     transform: translateX(10px);
     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.experience-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+.timeline-content:hover .experience-card-bg {
+    opacity: 0.12;
+}
+
+.experience-header,
+.achievements-list {
+    position: relative;
+    z-index: 1;
 }
 
 .experience-header {

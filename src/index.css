@@ -1,30 +1,35 @@
 :root {
-  /* Enhanced Light Theme Color Palette */
-  --color-bg-primary: #fafbfc;
-  --color-bg-secondary: #f5f7fa;
+  /* Enhanced Light Theme Color Palette - Beige & Pink */
+  --color-bg-primary: #fff5d7;
+  --color-bg-secondary: #fffaf0;
+  /* Slightly lighter beige */
   --color-bg-elevated: #ffffff;
-  --color-accent-primary: #6366f1;
-  --color-accent-secondary: #8b5cf6;
-  --color-accent-tertiary: #ec4899;
-  --color-accent-cyan: #06b6d4;
-  --color-accent-orange: #f97316;
+  --color-accent-primary: #ff5e6c;
+  /* Coral Pink */
+  --color-accent-secondary: #ffaaab;
+  /* Pink Leaf */
+  --color-accent-tertiary: #feb300;
+  /* Sleuthe Yellow */
+  --color-accent-cyan: #ffaaab;
+  --color-accent-orange: #feb300;
   --color-text-primary: #1e293b;
   --color-text-secondary: #475569;
   --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
+  --color-border: #f0e6c8;
+  /* Darker beige for borders */
+  --color-border-light: #fffaf0;
   --color-success: #10b981;
-  --color-warning: #f59e0b;
+  --color-warning: #feb300;
   --color-error: #ef4444;
-  --color-info: #3b82f6;
+  --color-info: #ff5e6c;
 
-  /* Clean UI Gradients */
-  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-  --gradient-secondary: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
-  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-  --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  --gradient-purple: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
-  --gradient-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.0) 100%);
+  /* Clean UI Gradients - Replaced with Solid Colors */
+  --gradient-primary: var(--color-accent-primary);
+  --gradient-secondary: var(--color-accent-secondary);
+  --gradient-accent: var(--color-accent-primary);
+  --gradient-subtle: transparent;
+  --gradient-purple: var(--color-accent-primary);
+  --gradient-shine: transparent;
   --gradient-mesh: none;
 
   /* Spacing */
@@ -64,9 +69,9 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
-  --shadow-colored: 0 10px 40px -10px rgba(102, 126, 234, 0.4);
-  --shadow-colored-lg: 0 20px 60px -15px rgba(102, 126, 234, 0.5);
+  --shadow-glow: 0 0 20px rgba(255, 94, 108, 0.3);
+  --shadow-colored: 0 10px 40px -10px rgba(255, 94, 108, 0.4);
+  --shadow-colored-lg: 0 20px 60px -15px rgba(255, 94, 108, 0.5);
 }
 
 /* Reset */
@@ -252,6 +257,7 @@ a:hover {
 
 .card:hover::before {
   left: 100%;
+  opacity: 0;
 }
 
 .card:hover {
@@ -533,10 +539,7 @@ a:hover {
 }
 
 .text-gradient {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-accent-primary);
 }
 
 .mb-sm {

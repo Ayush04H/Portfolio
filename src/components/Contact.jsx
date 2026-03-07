@@ -163,9 +163,14 @@ const Contact = () => {
                                 </div>
                             ))}
                         </div>
+
+                        <div className="contact-illustration-container">
+                            <img src="/contact-illustration.png" alt="Contact illustration" className="contact-illustration" />
+                        </div>
                     </div>
 
                     <form className="contact-form" onSubmit={handleSubmit}>
+                        <div className="contact-form-bg" style={{ backgroundImage: "url('/contact-form-bg.png')" }}></div>
                         <div className="form-group">
                             <label htmlFor="name" className="form-label">
                                 Your Name *

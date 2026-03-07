@@ -10,7 +10,8 @@
     right: 0;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+    background: radial-gradient(circle, rgba(255, 94, 108, 0.08), transparent 70%);
+    /* Coral Pink transparent */
     pointer-events: none;
     animation: float 15s ease-in-out infinite;
 }
@@ -69,10 +70,31 @@
 }
 
 .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4xl);
+}
+
+.about-main-wrapper {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    grid-template-columns: 1fr 1.5fr;
     gap: var(--spacing-3xl);
-    align-items: start;
+    align-items: center;
+}
+
+.about-image-container {
+    width: 100%;
+}
+
+.about-image-main {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+    border: 2px solid var(--color-border);
+    display: block;
+    margin: 0 auto;
 }
 
 .about-text {
@@ -158,6 +180,31 @@
     box-shadow: 0 15px 40px -10px var(--stat-color);
 }
 
+.stat-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+.stat-card:hover .stat-card-bg {
+    opacity: 0.15;
+}
+
+.stat-icon,
+.stat-value,
+.stat-label {
+    position: relative;
+    z-index: 1;
+}
+
 .stat-card:hover .stat-glow {
     width: 200px;
     height: 200px;
@@ -175,7 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    background: linear-gradient(135deg, rgba(255, 94, 108, 0.1), rgba(254, 179, 0, 0.1));
     border-radius: var(--radius-xl);
     color: var(--stat-color);
     transition: all var(--transition-smooth);
@@ -208,7 +255,7 @@
 }
 
 @media (max-width: 968px) {
-    .about-content {
+    .about-main-wrapper {
         grid-template-columns: 1fr;
         gap: var(--spacing-2xl);
     }

@@ -78,12 +78,48 @@ a.contact-value:hover {
     color: var(--color-accent-primary);
 }
 
+.contact-illustration-container {
+    width: 100%;
+    margin-top: var(--spacing-3xl);
+    display: flex;
+    justify-content: center;
+}
+
+.contact-illustration {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+}
+
 .contact-form {
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: var(--spacing-2xl);
     backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.contact-form>*:not(.contact-form-bg) {
+    position: relative;
+    z-index: 1;
 }
 
 .form-group {

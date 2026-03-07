@@ -17,7 +17,8 @@ const Projects = () => {
             ],
             tech: ['Python', 'Scikit-learn', 'FastAPI', 'Streamlit', 'Docker', 'Pandas'],
             link: 'https://loan-predication-ayush04h.streamlit.app/',
-            github: null
+            github: null,
+            bgImage: '/loan-prediction-bg.png'
         },
         {
             title: 'LLM-Doc-Summarizer',
@@ -33,7 +34,8 @@ const Projects = () => {
             ],
             tech: ['React', 'Python', 'Transformers', 'FastAPI', 'Docker', 'GitHub Actions'],
             link: null,
-            github: 'https://github.com/Ayush04H/LLM-Doc-Summarizer'
+            github: 'https://github.com/Ayush04H/LLM-Doc-Summarizer',
+            bgImage: '/llm-doc-bg.png'
         }
     ];
 
@@ -48,9 +50,18 @@ const Projects = () => {
                     </p>
                 </div>
 
+                <div className="projects-banner animate-fadeInUp">
+                    <img
+                        src="/projects-illustration.png"
+                        alt="Projects Overview"
+                        className="projects-banner-img"
+                    />
+                </div>
+
                 <div className="projects-grid">
                     {projects.map((project, index) => (
                         <div key={index} className="project-card">
+                            <div className="project-card-bg" style={{ backgroundImage: `url(${project.bgImage})` }}></div>
                             <div className="project-content">
                                 <h3 className="project-title">{project.title}</h3>
                                 <p className="project-description">{project.description}</p>
