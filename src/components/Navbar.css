@@ -42,7 +42,7 @@
     justify-content: center;
     width: 42px;
     height: 42px;
-    background: var(--gradient-primary);
+    background: var(--color-accent-primary);
     border-radius: var(--radius-lg);
     color: white;
     transition: all var(--transition-smooth);
@@ -55,10 +55,7 @@
 }
 
 .logo-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-text-primary);
     font-weight: 800;
     letter-spacing: 0.5px;
     transition: all var(--transition-base);
@@ -107,7 +104,7 @@
     transform: translateX(-50%) scaleX(0);
     width: 70%;
     height: 3px;
-    background: var(--gradient-primary);
+    background: var(--color-accent-primary);
     transition: transform var(--transition-base);
     border-radius: var(--radius-full);
 }

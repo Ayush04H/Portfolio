@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import './Contact.css';
 
 const Contact = () => {
@@ -12,6 +12,7 @@ const Contact = () => {
 
     const [formStatus, setFormStatus] = useState(null); // 'success', 'error', null
     const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const validateForm = () => {
         const newErrors = {};
@@ -53,31 +54,59 @@ const Contact = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (validateForm()) {
-            // Create mailto link with form data
-            const mailtoLink = `mailto:ayush050419@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-                `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-            )}`;
+            setIsSubmitting(true);
+            setFormStatus(null);
 
-            // Open email client
-            window.location.href = mailtoLink;
-
-            // Show success message
-            setFormStatus('success');
-
-            // Reset form
-            setTimeout(() => {
-                setFormData({
-                    name: '',
-                    email: '',
-                    subject: '',
-                    message: ''
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify({
+                        access_key: "c79ce55b-f833-4a1b-b242-408b1ba9178f",
+                        name: formData.name,
+                        email: formData.email,
+                        subject: formData.subject,
+                        message: formData.message,
+                    }),
                 });
-                setFormStatus(null);
-            }, 3000);
+
+                const result = await response.json();
+
+                if (result.success) {
+                    setFormStatus('success');
+                    setFormData({
+                        name: '',
+                        email: '',
+                        subject: '',
+                        message: ''
+                    });
+                } else {
+                    console.error("Form submission failed:", result);
+                    setFormStatus('error');
+                    setErrors({ submit: result.message || 'Something went wrong. Please try again later.' });
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                setFormStatus('error');
+                setErrors({ submit: 'Network error. Please try again later.' });
+            } finally {
+                setIsSubmitting(false);
+                setTimeout(() => {
+                    setFormStatus(null);
+                    setErrors(prev => {
+                        const newErrors = { ...prev };
+                        delete newErrors.submit;
+                        return newErrors;
+                    });
+                }, 5000);
+            }
         } else {
             setFormStatus('error');
         }
@@ -204,20 +233,33 @@ const Contact = () => {
                         {formStatus === 'success' && (
                             <div className="form-message success">
                                 <CheckCircle size={20} />
-                                <span>Opening email client...</span>
+                                <span>Message sent successfully! I will get back to you soon.</span>
                             </div>
                         )}
 
                         {formStatus === 'error' && (
                             <div className="form-message error">
                                 <AlertCircle size={20} />
-                                <span>Please fix the errors above</span>
+                                <span>{errors.submit ? errors.submit : 'Please fix the errors above'}</span>
                             </div>
                         )}
 
-                        <button type="submit" className="btn btn-primary submit-btn">
-                            <Send size={20} />
-                            Send Message
+                        <button
+                            type="submit"
+                            className="btn btn-primary submit-btn"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 size={20} style={{ animation: "rotate 2s linear infinite" }} />
+                                    Sending...
+                                </>
+                            ) : (
+                                <>
+                                    <Send size={20} />
+                                    Send Message
+                                </>
+                            )}
                         </button>
                     </form>
                 </div>
