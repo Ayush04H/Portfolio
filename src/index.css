@@ -18,16 +18,14 @@
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
-  /* Premium Gradients */
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --gradient-subtle: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  --gradient-purple: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  --gradient-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-  --gradient-mesh: radial-gradient(at 40% 20%, hsla(271, 91%, 65%, 0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(189, 85%, 61%, 0.15) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.15) 0px, transparent 50%);
+  /* Clean UI Gradients */
+  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  --gradient-secondary: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  --gradient-purple: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  --gradient-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.0) 100%);
+  --gradient-mesh: none;
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -91,7 +89,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   background-color: var(--color-bg-primary);
-  background-image: var(--gradient-mesh);
+  background-image: none;
   color: var(--color-text-primary);
   line-height: 1.6;
   overflow-x: hidden;
@@ -112,10 +110,9 @@ h6 {
 
 h1 {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-primary);
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 h2 {
@@ -207,7 +204,7 @@ a:hover {
 }
 
 .btn-primary {
-  background: var(--gradient-primary);
+  background: var(--color-accent-primary);
   color: white;
   box-shadow: var(--shadow-lg);
 }
@@ -271,12 +268,9 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Gradient Text */
+/* Solid Accent Text */
 .gradient-text {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-accent-primary);
 }
 
 /* Enhanced Animations */
@@ -512,13 +506,13 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #667eea, #764ba2);
+  background: var(--color-accent-primary);
   border-radius: var(--radius-full);
   border: 3px solid var(--color-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #764ba2, #667eea);
+  background: var(--color-accent-secondary);
 }
 
 /* Selection */
@@ -595,13 +589,12 @@ a:hover {
   opacity: 0.3;
 }
 
-/* Animated Gradient Border */
+/* Solid Accent Border */
 .gradient-border {
   position: relative;
   border-radius: var(--radius-2xl);
   padding: 2px;
-  background: var(--gradient-primary);
-  animation: rotateBorder 3s linear infinite;
+  background: var(--color-accent-primary);
 }
 
 .gradient-border>* {
@@ -754,12 +747,7 @@ a:hover {
 }
 
 .animated-gradient-text {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899, #6366f1);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 3s ease infinite;
+  color: var(--color-accent-primary);
 }
 
 /* Perspective Card Tilt */
