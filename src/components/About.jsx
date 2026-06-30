@@ -1,16 +1,75 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { GraduationCap, Calendar, Award, Sparkles } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './About.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const About = () => {
+    const sectionRef = useRef(null);
+
     const stats = [
-        { icon: <GraduationCap size={28} />, value: '3+', label: 'Years Coding', color: '#ff5e6c', bgImage: '/stats-coding-bg.png' },
-        { icon: <Sparkles size={28} />, value: '10+', label: 'Projects', color: '#feb300', bgImage: '/stats-projects-bg.png' },
-        { icon: <Award size={28} />, value: '8.90', label: 'CGPA', color: '#ffaaab', bgImage: '/stats-cgpa-bg.png' }
+        { icon: <Calendar size={28} />, value: '1+', label: 'Years Experience', color: '#ff5e6c', bgImage: '/stats-coding-bg.png' },
+        { icon: <Sparkles size={28} />, value: '12+', label: 'Production Releases', color: '#feb300', bgImage: '/stats-projects-bg.png' },
+        { icon: <Award size={28} />, value: '8.90', label: 'B.Tech CGPA', color: '#ffaaab', bgImage: '/stats-cgpa-bg.png' }
     ];
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                '.about-image-container',
+                { opacity: 0, x: -70 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.9,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 80%',
+                    }
+                }
+            );
+
+            gsap.fromTo(
+                '.about-text',
+                { opacity: 0, x: 70 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.9,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 80%',
+                    }
+                }
+            );
+
+            gsap.fromTo(
+                '.stat-card',
+                { opacity: 0, y: 50, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.7,
+                    stagger: 0.2,
+                    ease: 'back.out(1.5)',
+                    scrollTrigger: {
+                        trigger: '.about-stats',
+                        start: 'top 85%',
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="about" className="section about">
+        <section id="about" className="section about" ref={sectionRef}>
             <div className="about-decorative-bg"></div>
 
             <div className="container">
@@ -20,31 +79,24 @@ const About = () => {
                         <span className="underline-dot"></span>
                     </div>
                     <p className="section-description">
-                        Passionate software engineer with expertise in full-stack development
+                        Designing, developing, and running highly available distributed systems and microservices
                     </p>
                 </div>
 
                 <div className="about-content">
                     <div className="about-main-wrapper">
-                        <div className="about-image-container animate-fadeInLeft">
+                        <div className="about-image-container">
                             <img src="/about-illustration.png" alt="Developer setup" className="about-image-main" />
                         </div>
-                        <div className="about-text animate-fadeInUp">
+                        <div className="about-text">
                             <p className="about-paragraph">
-                                I'm a <strong className="text-gradient">Software Development Engineer</strong> with a passion for
-                                transforming ideas into elegant, efficient solutions. My journey in tech has been driven by
-                                an insatiable curiosity for <strong>AI/ML</strong>, <strong>Full-Stack Development</strong>,
-                                and <strong>DevOps</strong>.
+                                I'm a customer-focused <strong className="text-gradient">Software Development Engineer</strong> with over <strong className="highlight-text">1+ years</strong> of professional experience designing, developing, and running highly available distributed systems and backend microservices.
                             </p>
                             <p className="about-paragraph">
-                                Currently at <strong className="highlight-text">Street Surge</strong>, I build cutting-edge
-                                solutions that optimize fleet logistics and streamline business operations. I thrive on
-                                challenges that push the boundaries of what's possible with technology.
+                                Currently at <strong className="highlight-text">Street Surge</strong>, I architect full-stack platforms using <strong>Spring Boot</strong>, <strong>React</strong>, and <strong>Python</strong>, serving 500+ daily active users and optimizing routing algorithms that process 2M+ nodes to deliver substantial enterprise cost savings.
                             </p>
                             <p className="about-paragraph">
-                                With a strong foundation in <strong>Python</strong>, <strong>JavaScript</strong>,
-                                <strong>React</strong>, and <strong>Machine Learning</strong>, I'm committed to continuous
-                                learning and creating impactful software that makes a difference.
+                                Holding a Bachelor of Technology in IT from Bharati Vidyapeeth's College of Engineering with a cumulative GPA of <strong className="text-gradient">8.90 / 10</strong>, I possess profound command over <strong>Java</strong>, <strong>AWS Cloud Infrastructure</strong>, and modern CI/CD best practices.
                             </p>
                         </div>
                     </div>
@@ -53,7 +105,7 @@ const About = () => {
                         {stats.map((stat, index) => (
                             <div
                                 key={index}
-                                className={`stat-card animate-scaleIn stagger-${index + 1}`}
+                                className="stat-card"
                                 style={{ '--stat-color': stat.color }}
                             >
                                 <div className="stat-card-bg" style={{ backgroundImage: `url(${stat.bgImage})` }}></div>

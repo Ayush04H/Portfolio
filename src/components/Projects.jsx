@@ -1,52 +1,96 @@
-import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { ExternalLink, Github, Sparkles } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Projects.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Projects = () => {
+    const sectionRef = useRef(null);
+
     const projects = [
         {
-            title: 'Loan Prediction App',
-            description: 'A comprehensive machine learning application that predicts loan approval status using advanced ML algorithms. Built with a complete pipeline from data preprocessing to model deployment, featuring real-time predictions through an intuitive Streamlit interface.',
+            title: 'Fleet-Optimization',
+            badge: 'Featured Enterprise Platform',
+            description: 'An enterprise fleet telematics application engineered with Java, Spring Boot 3, React, and PostgreSQL to track real-time vehicle locations and automate dispatch operations seamlessly.',
             features: [
-                'Implemented ensemble ML model achieving 85% prediction accuracy',
-                'Optimized prediction pipeline processing 0.02 seconds per record',
-                'Built scalable FastAPI backend supporting 20+ concurrent users',
-                'Dockerized deployment for consistent environment across platforms',
-                'Real-time form validation and instant prediction results',
-                'Sub-100ms API response times with efficient data handling'
+                'Launched enterprise telematics application automating dispatch operations',
+                'Enforced scheduling validation logic to uphold driver work-hour regulations and cargo capacity limits, eliminating scheduling conflicts completely',
+                'Integrated live location broadcasting via WebSockets for low-latency monitoring',
+                'Scheduled background CRON jobs for automated severe weather tracking',
+                'Robust RESTful API architecture connecting microservices and analytics'
             ],
-            tech: ['Python', 'Scikit-learn', 'FastAPI', 'Streamlit', 'Docker', 'Pandas'],
+            tech: ['Java', 'Spring Boot 3', 'React', 'PostgreSQL', 'WebSockets', 'REST API'],
+            link: 'https://fleet-optimization.ayushpersonal.space/',
+            github: 'https://github.com/Ayush04H/Fleet-Optimization',
+            bgImage: '/projects-illustration.png'
+        },
+        {
+            title: 'Loan Prediction App',
+            badge: 'Machine Learning Inference',
+            description: 'A high-concurrency machine learning inference service that predicts loan approval outcomes across 10K+ historical records with sub-20ms response times.',
+            features: [
+                'Developed ML inference service evaluating 10K+ historical loan records',
+                'Accelerated prediction response times down to under 20 ms per request',
+                'Built high-concurrency asynchronous REST APIs using FastAPI',
+                'Containerized backend workloads with Docker for reliable deployments',
+                'Produced interactive web dashboards using Streamlit supporting sub-100 ms UI SLAs'
+            ],
+            tech: ['Python', 'Machine Learning', 'FastAPI', 'Streamlit', 'Docker'],
             link: 'https://loan-predication-ayush04h.streamlit.app/',
             github: null,
             bgImage: '/loan-prediction-bg.png'
         },
         {
             title: 'LLM-Doc-Summarizer',
-            description: 'An intelligent document summarization tool powered by facebook/bart-large-cnn transformer model. Enables users to upload .docx files and receive customizable AI-generated summaries with adjustable length and detail levels.',
+            badge: 'Generative AI & NLP',
+            description: 'An asynchronous document processing application using Python and open-source NLP models (BART) for dynamic text summarization across complex document structures.',
             features: [
-                'Integrated BART transformer model for high-quality summarization',
-                'Support for various document formats (.docx, .pdf)',
-                'Customizable summary lengths (short, medium, detailed)',
-                'Modern React frontend with drag-and-drop file upload',
-                'FastAPI backend with 50% faster processing through optimization',
-                'CI/CD pipeline with GitHub Actions for automated deployment',
-                '99.9% uptime with comprehensive error handling and logging'
+                'Programmed asynchronous document processing application using BART models',
+                'Designed modular backend architecture using FastAPI microservices',
+                'Accelerated unstructured document upload and ingestion turnaround times',
+                'Configured automated CI/CD pipelines via GitHub Actions',
+                'Containerized backend workloads in Docker to ensure high service availability'
             ],
-            tech: ['React', 'Python', 'Transformers', 'FastAPI', 'Docker', 'GitHub Actions'],
+            tech: ['Python', 'React', 'GenAI / BART', 'FastAPI', 'Docker', 'GitHub Actions'],
             link: null,
             github: 'https://github.com/Ayush04H/LLM-Doc-Summarizer',
             bgImage: '/llm-doc-bg.png'
         }
     ];
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                '.project-card',
+                { opacity: 0, y: 80, scale: 0.96 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 80%',
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="projects" className="section projects">
+        <section id="projects" className="section projects" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
                     <h2 className="section-title">Featured Projects</h2>
                     <div className="title-underline"></div>
                     <p className="section-description">
-                        Building innovative solutions with AI/ML and modern web technologies
+                        Architecting full-stack distributed platforms, real-time telematics, and AI/ML services
                     </p>
                 </div>
 
@@ -63,11 +107,17 @@ const Projects = () => {
                         <div key={index} className="project-card">
                             <div className="project-card-bg" style={{ backgroundImage: `url(${project.bgImage})` }}></div>
                             <div className="project-content">
+                                {project.badge && (
+                                    <div className="project-badge">
+                                        <Sparkles size={14} />
+                                        <span>{project.badge}</span>
+                                    </div>
+                                )}
                                 <h3 className="project-title">{project.title}</h3>
                                 <p className="project-description">{project.description}</p>
 
                                 <div className="project-features">
-                                    <h4 className="features-title">Key Features:</h4>
+                                    <h4 className="features-title">Key Highlights:</h4>
                                     <ul className="features-list">
                                         {project.features.map((feature, idx) => (
                                             <li key={idx}>{feature}</li>

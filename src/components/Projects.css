@@ -70,6 +70,21 @@
     z-index: 1;
 }
 
+.project-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(254, 179, 0, 0.15);
+    border: 1px solid rgba(254, 179, 0, 0.4);
+    color: var(--color-accent-secondary);
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    width: fit-content;
+}
+
 .project-title {
     font-size: 1.7rem;
     margin-bottom: var(--spacing-md);

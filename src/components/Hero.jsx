@@ -6,9 +6,9 @@ const Hero = () => {
     const [currentRole, setCurrentRole] = useState(0);
     const roles = [
         'Software Development Engineer',
-        'Full-Stack Developer',
-        'AI/ML Engineer',
-        'DevOps Enthusiast'
+        'Full-Stack Java & Python Engineer',
+        'Distributed Systems & AWS Architect',
+        'AI/ML & Microservices Developer'
     ];
 
     useEffect(() => {
@@ -56,8 +56,7 @@ const Hero = () => {
                                 </p>
                             </div>
                             <p className="hero-description animate-fadeInUp stagger-4">
-                                Passionate about building innovative solutions with AI/ML, Full-Stack Development,
-                                and DevOps. Currently crafting cutting-edge software at Street Surge.
+                                Customer-focused Software Development Engineer with 1+ years of experience designing, developing, and deploying highly available distributed systems and microservices at Street Surge.
                             </p>
 
                             <div className="hero-cta animate-fadeInUp stagger-5">

@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import Lenis from 'lenis';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,20 +13,50 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
+gsap.registerPlugin(ScrollTrigger);
+
 function App() {
     useEffect(() => {
-        // Smooth scroll polyfill for older browsers
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // Initialize Lenis smooth kinetic scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            smoothTouch: false,
+            touchMultiplier: 2,
         });
+
+        // Sync Lenis scroll with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        // Smooth scroll anchor navigation using Lenis
+        const anchors = document.querySelectorAll('a[href^="#"]');
+        const handleAnchorClick = function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    lenis.scrollTo(target, { offset: -70 });
+                }
+            }
+        };
+
+        anchors.forEach(anchor => anchor.addEventListener('click', handleAnchorClick));
+
+        return () => {
+            gsap.ticker.remove((time) => lenis.raf(time * 1000));
+            lenis.destroy();
+            anchors.forEach(anchor => anchor.removeEventListener('click', handleAnchorClick));
+        };
     }, []);
 
     return (

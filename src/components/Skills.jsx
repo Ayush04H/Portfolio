@@ -1,42 +1,63 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Skills.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Skills = () => {
+    const sectionRef = useRef(null);
+
     const skillCategories = [
         {
-            category: 'Languages',
-            skills: ['Python', 'Java', 'C++', 'JavaScript']
+            category: 'Languages & Fundamentals',
+            skills: ['Java', 'Python', 'C++', 'SQL', 'JavaScript', 'Bash', 'Data Structures & Algorithms', 'Object-Oriented Design (OOD)']
         },
         {
-            category: 'Technologies & Frameworks',
-            skills: ['React', 'Django', 'FastAPI', 'Flask', 'HTML5', 'CSS3', 'Streamlit']
+            category: 'Backend & Web Frameworks',
+            skills: ['Spring Boot 3', 'React', 'Django', 'FastAPI', 'RESTful APIs', 'Microservices Architecture', 'WebSockets', 'Nginx']
         },
         {
-            category: 'Data Science & AI',
-            skills: ['Machine Learning', 'PyTorch', 'TensorFlow', 'LLM', 'Gen AI', 'OpenCV', 'ETL']
+            category: 'Cloud, DevOps & Systems',
+            skills: ['AWS (EC2, RDS, Cognito, S3, IAM)', 'Docker', 'Kubernetes', 'Linux', 'GitHub Actions', 'CI/CD Pipelines', 'Distributed Systems']
         },
         {
-            category: 'DevOps',
-            skills: ['Docker', 'Kubernetes', 'Jenkins', 'GitHub Actions', 'MLflow']
-        },
-        {
-            category: 'Cloud Platforms',
-            skills: ['AWS', 'GCP (BigQuery, Bucket)']
-        },
-        {
-            category: 'Databases',
-            skills: ['MySQL', 'MongoDB', 'Amazon RDS']
+            category: 'Data, AI & Best Practices',
+            skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Machine Learning', 'PyTorch', 'LLMs & GenAI', 'ETL Pipelines', 'Unit Testing / TDD', 'Agile / Scrum', 'Git']
         }
     ];
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                '.skill-category',
+                { opacity: 0, y: 50, scale: 0.95 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.7,
+                    stagger: 0.18,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 85%',
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section id="skills" className="section skills">
+        <section id="skills" className="section skills" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Skills & Technologies</h2>
+                    <h2 className="section-title">Technical Skills</h2>
                     <div className="title-underline"></div>
                     <p className="section-description">
-                        A comprehensive toolkit for building modern, scalable applications
+                        My complete engineering arsenal optimized for scalable microservices, cloud infrastructure, and AI systems
                     </p>
                 </div>
 
