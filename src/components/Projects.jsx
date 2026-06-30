@@ -62,22 +62,26 @@ const Projects = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo(
-                '.project-card',
-                { opacity: 0, y: 80, scale: 0.96 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.8,
-                    stagger: 0.2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 80%',
+            const cards = gsap.utils.toArray('.project-card');
+            cards.forEach((card, index) => {
+                gsap.fromTo(
+                    card,
+                    { opacity: 0, y: 120, scale: 0.9 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 85%',
+                            end: 'top 55%',
+                            scrub: 1,
+                        }
                     }
-                }
-            );
+                );
+            });
         }, sectionRef);
 
         return () => ctx.revert();

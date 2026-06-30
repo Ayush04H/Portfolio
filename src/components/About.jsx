@@ -19,50 +19,56 @@ const About = () => {
         const ctx = gsap.context(() => {
             gsap.fromTo(
                 '.about-image-container',
-                { opacity: 0, x: -70 },
+                { opacity: 0, x: -100, rotateY: -15 },
                 {
                     opacity: 1,
                     x: 0,
-                    duration: 0.9,
-                    ease: 'power3.out',
+                    rotateY: 0,
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: 'top 80%',
+                        start: 'top 85%',
+                        end: 'top 45%',
+                        scrub: 1,
                     }
                 }
             );
 
             gsap.fromTo(
                 '.about-text',
-                { opacity: 0, x: 70 },
+                { opacity: 0, x: 100 },
                 {
                     opacity: 1,
                     x: 0,
-                    duration: 0.9,
-                    ease: 'power3.out',
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: 'top 80%',
+                        start: 'top 85%',
+                        end: 'top 45%',
+                        scrub: 1,
                     }
                 }
             );
 
-            gsap.fromTo(
-                '.stat-card',
-                { opacity: 0, y: 50, scale: 0.9 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.7,
-                    stagger: 0.2,
-                    ease: 'back.out(1.5)',
-                    scrollTrigger: {
-                        trigger: '.about-stats',
-                        start: 'top 85%',
+            const statsCards = gsap.utils.toArray('.stat-card');
+            statsCards.forEach((card, index) => {
+                gsap.fromTo(
+                    card,
+                    { opacity: 0, y: 80, scale: 0.85 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 90%',
+                            end: 'top 65%',
+                            scrub: 1,
+                        }
                     }
-                }
-            );
+                );
+            });
         }, sectionRef);
 
         return () => ctx.revert();

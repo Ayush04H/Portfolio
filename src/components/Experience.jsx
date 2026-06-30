@@ -52,21 +52,33 @@ const Experience = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
+            // Animate timeline vertical line drawing down with scroll
             gsap.fromTo(
-                '.timeline-item',
-                { opacity: 0, x: -60 },
-                {
-                    opacity: 1,
-                    x: 0,
-                    duration: 0.8,
-                    stagger: 0.25,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 80%',
-                    }
-                }
+                '.timeline',
+                { '--progress': 0 },
+                {}
             );
+
+            const items = gsap.utils.toArray('.timeline-item');
+            items.forEach((item, index) => {
+                gsap.fromTo(
+                    item,
+                    { opacity: 0, x: -80, scale: 0.92 },
+                    {
+                        opacity: 1,
+                        x: 0,
+                        scale: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 85%',
+                            end: 'top 60%',
+                            scrub: 1,
+                        }
+                    }
+                );
+            });
         }, sectionRef);
 
         return () => ctx.revert();

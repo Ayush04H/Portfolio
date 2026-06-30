@@ -1,35 +1,33 @@
 :root {
-  /* Enhanced Light Theme Color Palette - Beige & Pink */
-  --color-bg-primary: #fff5d7;
-  --color-bg-secondary: #fffaf0;
-  /* Slightly lighter beige */
-  --color-bg-elevated: #ffffff;
-  --color-accent-primary: #ff5e6c;
-  /* Coral Pink */
-  --color-accent-secondary: #ffaaab;
-  /* Pink Leaf */
-  --color-accent-tertiary: #feb300;
-  /* Sleuthe Yellow */
-  --color-accent-cyan: #ffaaab;
-  --color-accent-orange: #feb300;
-  --color-text-primary: #1e293b;
-  --color-text-secondary: #475569;
+  /* Midnight Obsidian & Electric Cyber Neon Dark Theme */
+  --color-bg-primary: #060911;
+  --color-bg-secondary: #0b0f19;
+  --color-bg-elevated: #111827;
+  --color-accent-primary: #00f2fe;
+  /* Cyber Cyan */
+  --color-accent-secondary: #4facfe;
+  /* Bright Azure */
+  --color-accent-tertiary: #a855f7;
+  /* Neon Purple */
+  --color-accent-cyan: #00f2fe;
+  --color-accent-orange: #f59e0b;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #a1a1aa;
   --color-text-muted: #64748b;
-  --color-border: #f0e6c8;
-  /* Darker beige for borders */
-  --color-border-light: #fffaf0;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.15);
   --color-success: #10b981;
-  --color-warning: #feb300;
+  --color-warning: #f59e0b;
   --color-error: #ef4444;
-  --color-info: #ff5e6c;
+  --color-info: #00f2fe;
 
-  /* Clean UI Gradients - Replaced with Solid Colors */
-  --gradient-primary: var(--color-accent-primary);
-  --gradient-secondary: var(--color-accent-secondary);
-  --gradient-accent: var(--color-accent-primary);
-  --gradient-subtle: transparent;
-  --gradient-purple: var(--color-accent-primary);
-  --gradient-shine: transparent;
+  /* Cyberpunk Gradients */
+  --gradient-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  --gradient-secondary: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --gradient-accent: linear-gradient(135deg, #00f2fe 0%, #a855f7 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(11, 15, 25, 0) 0%, rgba(11, 15, 25, 0.8) 100%);
+  --gradient-purple: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+  --gradient-shine: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.15), transparent);
   --gradient-mesh: none;
 
   /* Spacing */
@@ -62,16 +60,16 @@
   --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --transition-smooth: 650ms cubic-bezier(0.19, 1, 0.22, 1);
 
-  /* Shadows - Enhanced for depth */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-  --shadow-glow: 0 0 20px rgba(255, 94, 108, 0.3);
-  --shadow-colored: 0 10px 40px -10px rgba(255, 94, 108, 0.4);
-  --shadow-colored-lg: 0 20px 60px -15px rgba(255, 94, 108, 0.5);
+  /* Shadows - Enhanced Neon Glows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 25px rgba(0, 242, 254, 0.4);
+  --shadow-colored: 0 10px 40px -10px rgba(0, 242, 254, 0.5);
+  --shadow-colored-lg: 0 20px 60px -15px rgba(0, 242, 254, 0.65);
 }
 
 /* Reset */

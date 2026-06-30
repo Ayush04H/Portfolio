@@ -29,22 +29,27 @@ const Skills = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo(
-                '.skill-category',
-                { opacity: 0, y: 50, scale: 0.95 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.7,
-                    stagger: 0.18,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 85%',
+            const cards = gsap.utils.toArray('.skill-category');
+            cards.forEach((card, index) => {
+                gsap.fromTo(
+                    card,
+                    { opacity: 0, y: 100, scale: 0.88, rotateX: 12 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        rotateX: 0,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top 90%',
+                            end: 'top 65%',
+                            scrub: 1,
+                        }
                     }
-                }
-            );
+                );
+            });
         }, sectionRef);
 
         return () => ctx.revert();

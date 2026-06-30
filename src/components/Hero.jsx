@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
     const [currentRole, setCurrentRole] = useState(0);
+    const heroRef = useRef(null);
+
     const roles = [
         'Software Development Engineer',
         'Full-Stack Java & Python Engineer',
@@ -18,12 +24,45 @@ const Hero = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Scrollytelling parallax scrub effect when scrolling down past hero
+            gsap.to('.hero-video-wrapper', {
+                y: 120,
+                scale: 0.88,
+                rotateX: 10,
+                opacity: 0.3,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+
+            gsap.to('.hero-content', {
+                y: -80,
+                opacity: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: '20% top',
+                    end: '80% top',
+                    scrub: true,
+                }
+            });
+        }, heroRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const scrollToAbout = () => {
         document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <section id="home" className="hero">
+        <section id="home" className="hero" ref={heroRef}>
             <div className="hero-split-container">
                 {/* Left Side: Video */}
                 <div className="hero-left">
