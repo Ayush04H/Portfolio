@@ -14,7 +14,7 @@ const Experience = () => {
             company: 'Street Surge',
             role: 'Software Development Engineer',
             period: 'Feb 2025 - Present',
-            location: 'Pune, India',
+            location: 'Gurgaon, India',
             achievements: [
                 'Engineered 3 full-stack web platforms using Spring Boot, React, and Python, connecting 6+ backend microservices through an API gateway to serve 500+ daily active users with high reliability.',
                 'Collaborated with product managers and engineers across 4 cross-functional teams to define technical roadmaps, prioritize feature backlogs, and successfully launch 12+ client-facing software releases on schedule.',
