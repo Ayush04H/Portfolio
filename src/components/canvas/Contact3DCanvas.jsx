@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * Contact3DCanvas — Dedicated Interactive 3D Cyber Globe & Signal Sphere for Contact ("Get In Touch") section.
+ * Contact3DCanvas — Global Cloud Matrix & Distributed API Endpoint Portal
  * Pure Vanilla Three.js + GSAP (Zero @react-three/fiber dependencies / zero ConcurrentRoot errors).
+ * Directly visualizes AWS Cloud endpoints, REST APIs, and microservice communication.
  */
 const Contact3DCanvas = () => {
     const mountRef = useRef(null);
@@ -22,32 +23,29 @@ const Contact3DCanvas = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Materials
-        const globeMat  = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.7 });
-        const signalMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.85 });
-        const coreMat   = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: false, transparent: true, opacity: 0.25 });
-
         const group = new THREE.Group();
         scene.add(group);
 
-        // Wireframe Globe Sphere
-        const globe = new THREE.Mesh(new THREE.SphereGeometry(4.2, 24, 24), globeMat);
+        // 1. Geodesic Cloud Matrix Sphere
+        const globeGeo = new THREE.IcosahedronGeometry(4.2, 2);
+        const globeMat = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.75 });
+        const globe = new THREE.Mesh(globeGeo, globeMat);
         group.add(globe);
 
-        // Signal Orbit Rings
-        const ring1 = new THREE.Mesh(new THREE.TorusGeometry(5.4, 0.12, 16, 64), signalMat);
+        // 2. Orbital API Signal Rings (Cognito / Secrets Manager security rings)
+        const ring1 = new THREE.Mesh(new THREE.TorusGeometry(5.4, 0.12, 16, 64), new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.85 }));
         ring1.rotation.x = Math.PI / 3;
         group.add(ring1);
 
-        const ring2 = new THREE.Mesh(new THREE.TorusGeometry(5.8, 0.08, 16, 64), signalMat);
+        const ring2 = new THREE.Mesh(new THREE.TorusGeometry(5.8, 0.08, 16, 64), new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true, transparent: true, opacity: 0.8 }));
         ring2.rotation.y = Math.PI / 4;
         group.add(ring2);
 
-        // Inner Core
-        const core = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16), coreMat);
+        // 3. Inner Data Core
+        const core = new THREE.Mesh(new THREE.SphereGeometry(2.2, 16, 16), new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: false, transparent: true, opacity: 0.3 }));
         group.add(core);
 
-        // Satellites (Communication Nodes)
+        // 4. API Endpoint Satellites (Communication Nodes)
         const sCount = 80;
         const sPos = new Float32Array(sCount * 3);
         for (let i = 0; i < sCount; i++) {
@@ -62,7 +60,7 @@ const Contact3DCanvas = () => {
         }
         const sGeo = new THREE.BufferGeometry();
         sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
-        const satellites = new THREE.Points(sGeo, new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.22, transparent: true, opacity: 0.9 }));
+        const satellites = new THREE.Points(sGeo, new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.24, transparent: true, opacity: 0.95 }));
         group.add(satellites);
 
         let mouseX = 0, mouseY = 0;
@@ -73,6 +71,7 @@ const Contact3DCanvas = () => {
         };
 
         const onClick = () => {
+            // Signal surge
             gsap.to(group.rotation, { y: group.rotation.y + Math.PI, duration: 1.2, ease: 'power3.out' });
             gsap.to(ring1.scale, { x: 1.25, y: 1.25, z: 1.25, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' });
             gsap.to(ring2.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' });
@@ -96,7 +95,7 @@ const Contact3DCanvas = () => {
             ring1.rotation.z += 0.008;
             ring2.rotation.x -= 0.006;
             satellites.rotation.y += 0.003;
-            core.scale.setScalar(1 + Math.sin(Date.now() * 0.003) * 0.12);
+            core.scale.setScalar(1 + Math.sin(Date.now() * 0.003) * 0.15);
 
             group.rotation.y += (mouseX - group.rotation.y) * 0.08;
             group.rotation.x += (mouseY - group.rotation.x) * 0.08;
@@ -123,7 +122,7 @@ const Contact3DCanvas = () => {
         <div
             ref={mountRef}
             className="contact-3d-canvas"
-            title="Interactive 3D Communication Sphere (Click or Move Mouse)"
+            title="Interactive Global Cloud Matrix & API Portal (Click to Signal)"
             style={{
                 position: 'absolute',
                 top: '14%',

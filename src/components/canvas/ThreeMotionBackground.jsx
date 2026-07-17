@@ -3,10 +3,10 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * ThreeMotionBackground — Bold, High-Visibility 3D Scrollytelling Universe across ALL sections.
+ * ThreeMotionBackground — Domain-Specific Engineering Lattices across ALL sections.
  * Vanilla Three.js + GSAP (Zero fiber dependencies, zero ConcurrentRoot crashes).
  * Positioned at zIndex: 1 so it floats visibly ABOVE solid section backgrounds and BEHIND section cards (zIndex: 2).
- * 6 large glowing 3D structures move and rotate in depth as the user scrolls.
+ * Replaces generic primitives with 6 Engineering Stack Sculptures tailored to Ayush's resume.
  */
 const ThreeMotionBackground = () => {
     const mountRef = useRef(null);
@@ -25,81 +25,86 @@ const ThreeMotionBackground = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         container.appendChild(renderer.domElement);
 
-        // 2. High-Visibility Glowing Materials
-        const amberMat = new THREE.MeshBasicMaterial({
-            color: 0xf59e0b,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.65
-        });
+        // 2. Glowing Materials
+        const amberMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.65 });
+        const indigoMat = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.6 });
+        const violetMat = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.55 });
+        const emeraldMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true, transparent: true, opacity: 0.5 });
+        const cyanMat = new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.6 });
 
-        const indigoMat = new THREE.MeshBasicMaterial({
-            color: 0x6366f1,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.6
-        });
-
-        const violetMat = new THREE.MeshBasicMaterial({
-            color: 0x8b5cf6,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.55
-        });
-
-        const emeraldMat = new THREE.MeshBasicMaterial({
-            color: 0x10b981,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.5
-        });
-
-        // 3. 6 Prominent 3D Geometries positioned across scroll depths (y = 12 down to y = -140)
         const meshes = [];
 
-        // Mesh 1: Top Left TorusKnot (Hero / About border)
-        const torusGeo = new THREE.TorusKnotGeometry(4.5, 1.1, 80, 16);
-        const torus = new THREE.Mesh(torusGeo, amberMat);
-        torus.position.set(-16, 5, -8);
-        scene.add(torus);
-        meshes.push({ mesh: torus, rx: 0.005, ry: 0.008 });
+        // ── Mesh 1: Microservice Stack Cube (About/Hero border — Y: 5) ──
+        // Represents Full-Stack Architecture (Spring Boot, React, Django layers)
+        const stackGroup = new THREE.Group();
+        const layer1 = new THREE.Mesh(new THREE.BoxGeometry(6, 1.2, 6), amberMat);
+        const layer2 = new THREE.Mesh(new THREE.BoxGeometry(4.8, 1.2, 4.8), indigoMat);
+        const layer3 = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.2, 3.6), violetMat);
+        layer1.position.y = -2;
+        layer2.position.y = 0;
+        layer3.position.y = 2;
+        stackGroup.add(layer1, layer2, layer3);
+        stackGroup.position.set(-16, 5, -8);
+        scene.add(stackGroup);
+        meshes.push({ mesh: stackGroup, rx: 0.005, ry: 0.008 });
 
-        // Mesh 2: Mid Right Icosahedron (Skills section area)
-        const icoGeo = new THREE.IcosahedronGeometry(6, 1);
-        const ico = new THREE.Mesh(icoGeo, indigoMat);
-        ico.position.set(18, -25, -12);
-        scene.add(ico);
-        meshes.push({ mesh: ico, rx: -0.006, ry: 0.007 });
+        // ── Mesh 2: AI/ML Neural Core (Skills section — Y: -25) ──
+        // Represents GenAI, GPT-4, and OLLAMA framework systems
+        const neuralGroup = new THREE.Group();
+        const outerSphere = new THREE.Mesh(new THREE.IcosahedronGeometry(6, 2), indigoMat);
+        const innerSphere = new THREE.Mesh(new THREE.OctahedronGeometry(3.5, 1), cyanMat);
+        neuralGroup.add(outerSphere, innerSphere);
+        neuralGroup.position.set(18, -25, -12);
+        scene.add(neuralGroup);
+        meshes.push({ mesh: neuralGroup, rx: -0.006, ry: 0.007 });
 
-        // Mesh 3: Left Octahedron (Education / Experience area)
-        const octGeo = new THREE.OctahedronGeometry(5.5, 2);
-        const oct = new THREE.Mesh(octGeo, violetMat);
-        oct.position.set(-17, -55, -10);
-        scene.add(oct);
-        meshes.push({ mesh: oct, rx: 0.007, ry: -0.005 });
+        // ── Mesh 3: Distributed Graph Routing Cluster (Education/Experience border — Y: -55) ──
+        // Represents Street Surge routing algorithms processing 2M+ nodes
+        const graphGroup = new THREE.Group();
+        const hubMesh = new THREE.Mesh(new THREE.DodecahedronGeometry(5.5, 1), violetMat);
+        const orbitRing = new THREE.Mesh(new THREE.TorusGeometry(7.5, 0.4, 16, 48), amberMat);
+        orbitRing.rotation.x = Math.PI / 3;
+        graphGroup.add(hubMesh, orbitRing);
+        graphGroup.position.set(-17, -55, -10);
+        scene.add(graphGroup);
+        meshes.push({ mesh: graphGroup, rx: 0.007, ry: -0.005 });
 
-        // Mesh 4: Right Dodecahedron (Projects section area)
-        const dodGeo = new THREE.DodecahedronGeometry(6.5, 1);
-        const dod = new THREE.Mesh(dodGeo, amberMat);
-        dod.position.set(17, -85, -14);
-        scene.add(dod);
-        meshes.push({ mesh: dod, rx: -0.005, ry: -0.006 });
+        // ── Mesh 4: AWS Cloud Server Infrastructure Ring (Projects area — Y: -85) ──
+        // Represents EC2, RDS, Cognito, and Secrets Manager architecture
+        const cloudGroup = new THREE.Group();
+        const serverDisc1 = new THREE.Mesh(new THREE.CylinderGeometry(6.5, 6.5, 1.0, 32, 1, true), amberMat);
+        const serverDisc2 = new THREE.Mesh(new THREE.CylinderGeometry(5.0, 5.0, 1.0, 32, 1, true), indigoMat);
+        const serverDisc3 = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 1.0, 32, 1, true), emeraldMat);
+        serverDisc1.position.y = -2;
+        serverDisc2.position.y = 0;
+        serverDisc3.position.y = 2;
+        cloudGroup.add(serverDisc1, serverDisc2, serverDisc3);
+        cloudGroup.position.set(17, -85, -14);
+        scene.add(cloudGroup);
+        meshes.push({ mesh: cloudGroup, rx: -0.005, ry: -0.006 });
 
-        // Mesh 5: Bottom Left Cyber Ring (Achievements area)
-        const ringGeo = new THREE.TorusGeometry(7, 1.4, 24, 64);
-        const ring = new THREE.Mesh(ringGeo, emeraldMat);
-        ring.position.set(-16, -115, -12);
-        scene.add(ring);
-        meshes.push({ mesh: ring, rx: 0.008, ry: 0.004 });
+        // ── Mesh 5: Vector Space Embedding Tensor Cube (Achievements area — Y: -115) ──
+        // Represents Vector similarity search across 50K+ documents
+        const tensorGroup = new THREE.Group();
+        const outerBox = new THREE.Mesh(new THREE.BoxGeometry(6.5, 6.5, 6.5), emeraldMat);
+        const innerOct = new THREE.Mesh(new THREE.OctahedronGeometry(4.0, 0), amberMat);
+        tensorGroup.add(outerBox, innerOct);
+        tensorGroup.position.set(-16, -115, -12);
+        scene.add(tensorGroup);
+        meshes.push({ mesh: tensorGroup, rx: 0.008, ry: 0.004 });
 
-        // Mesh 6: Bottom Right TorusKnot (Contact / Footer area)
-        const bottomTorusGeo = new THREE.TorusKnotGeometry(5, 1.2, 64, 16);
-        const bottomTorus = new THREE.Mesh(bottomTorusGeo, indigoMat);
-        bottomTorus.position.set(16, -145, -10);
-        scene.add(bottomTorus);
-        meshes.push({ mesh: bottomTorus, rx: 0.006, ry: 0.006 });
+        // ── Mesh 6: Cybernetic API Geodesic Globe (Contact/Footer area — Y: -145) ──
+        // Represents distributed REST APIs and microservice communication
+        const globeGroup = new THREE.Group();
+        const geoSphere = new THREE.Mesh(new THREE.SphereGeometry(5.5, 16, 16), indigoMat);
+        const signalTorus = new THREE.Mesh(new THREE.TorusGeometry(7.0, 0.3, 16, 64), cyanMat);
+        signalTorus.rotation.y = Math.PI / 4;
+        globeGroup.add(geoSphere, signalTorus);
+        globeGroup.position.set(16, -145, -10);
+        scene.add(globeGroup);
+        meshes.push({ mesh: globeGroup, rx: 0.006, ry: 0.006 });
 
-        // 4. Floating 3D Starfield across entire scroll depth (-160 to 20)
+        // 3. Floating 3D Starfield & Data Node Lattices across entire scroll depth (-160 to 20)
         const pointsCount = 600;
         const posArray = new Float32Array(pointsCount * 3);
         const colorArray = new Float32Array(pointsCount * 3);
@@ -133,7 +138,7 @@ const ThreeMotionBackground = () => {
         const starField = new THREE.Points(pointsGeo, pointsMat);
         scene.add(starField);
 
-        // 5. Interaction & GSAP Scrollytelling hooks
+        // 4. Interaction & GSAP Scrollytelling hooks
         let mouseX = 0;
         let mouseY = 0;
 
@@ -145,7 +150,6 @@ const ThreeMotionBackground = () => {
         const onScroll = () => {
             const scrollY = window.scrollY || document.documentElement.scrollTop;
             // Map scroll pixel offset to Three.js world Y coordinate (camera descends with page scroll)
-            // As user scrolls 1000px down, camera drops by ~28 units, revealing each geometry!
             gsap.to(camera.position, {
                 y: -(scrollY * 0.028),
                 duration: 0.9,
@@ -169,12 +173,12 @@ const ThreeMotionBackground = () => {
         };
         window.addEventListener('resize', onResize);
 
-        // 6. Render loop
+        // 5. Render loop
         let animId;
         const animate = () => {
             animId = requestAnimationFrame(animate);
 
-            // Rotate all 6 meshes autonomously
+            // Rotate all 6 domain sculptures autonomously
             for (const { mesh, rx, ry } of meshes) {
                 mesh.rotation.x += rx;
                 mesh.rotation.y += ry;
@@ -210,7 +214,7 @@ const ThreeMotionBackground = () => {
                 width: '100vw',
                 height: '100vh',
                 pointerEvents: 'none',
-                zIndex: 1, /* Flotates visibly above section backgrounds and below section content (zIndex: 2) */
+                zIndex: 1,
                 overflow: 'hidden'
             }}
         />

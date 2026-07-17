@@ -3,9 +3,9 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * Hero3DCanvas — High-Impact Interactive 3D Cyber Sculpture right inside Hero
+ * Hero3DCanvas — AI/ML Neural Brain & Distributed Cloud Architecture Core
  * Pure Vanilla Three.js + GSAP (Zero @react-three/fiber dependencies / no ConcurrentRoot errors).
- * Features a glowing multi-layered Cyber Ring & Icosahedron Core that reacts to mouse tracking.
+ * Directly represents Ayush's core resume domain: AI/ML Neural Networks & AWS Distributed Systems.
  */
 const Hero3DCanvas = () => {
     const mountRef = useRef(null);
@@ -24,80 +24,104 @@ const Hero3DCanvas = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // 2. Glowing Materials
-        const outerTorusMat = new THREE.MeshBasicMaterial({
-            color: 0xf59e0b, // Amber Gold
-            wireframe: true,
-            transparent: true,
-            opacity: 0.85
-        });
+        const mainGroup = new THREE.Group();
+        scene.add(mainGroup);
 
-        const middleIcoMat = new THREE.MeshBasicMaterial({
-            color: 0x6366f1, // Electric Indigo
-            wireframe: true,
-            transparent: true,
-            opacity: 0.75
-        });
+        // 2. AI Neural Brain Architecture (Interconnected Synaptic Nodes)
+        const neuronCount = 70;
+        const neuronPositions = new Float32Array(neuronCount * 3);
+        const neuronNodes = [];
 
-        const innerSphereMat = new THREE.MeshBasicMaterial({
-            color: 0xff8c00, // Deep Gold/Orange glow
-            wireframe: false,
-            transparent: true,
-            opacity: 0.25
-        });
+        for (let i = 0; i < neuronCount; i++) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const radius = 3.8 + Math.random() * 1.5;
 
-        const particleMat = new THREE.PointsMaterial({
-            color: 0xf59e0b,
-            size: 0.18,
-            transparent: true,
-            opacity: 0.9
-        });
+            const x = radius * Math.sin(phi) * Math.cos(theta);
+            const y = radius * Math.sin(phi) * Math.sin(theta);
+            const z = radius * Math.cos(phi);
 
-        // 3. Geometries & Meshes
-        // Group holds all interactive elements
-        const cyberGroup = new THREE.Group();
-        scene.add(cyberGroup);
-
-        // Outer Torus Ring
-        const torusGeo = new THREE.TorusGeometry(6, 1.2, 24, 64);
-        const torusMesh = new THREE.Mesh(torusGeo, outerTorusMat);
-        torusMesh.rotation.x = Math.PI / 4;
-        cyberGroup.add(torusMesh);
-
-        // Middle Icosahedron
-        const icoGeo = new THREE.IcosahedronGeometry(4, 1);
-        const icoMesh = new THREE.Mesh(icoGeo, middleIcoMat);
-        cyberGroup.add(icoMesh);
-
-        // Inner Glowing Core Orb
-        const orbGeo = new THREE.SphereGeometry(2.2, 32, 32);
-        const orbMesh = new THREE.Mesh(orbGeo, innerSphereMat);
-        cyberGroup.add(orbMesh);
-
-        // Orbiting Particle Cloud (200 glowing dots around sphere)
-        const pCount = 200;
-        const pPos = new Float32Array(pCount * 3);
-        for (let i = 0; i < pCount; i++) {
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(2 * Math.random() - 1);
-            const radius = 5.5 + Math.random() * 2.5;
-            pPos[i * 3]     = radius * Math.sin(phi) * Math.cos(theta);
-            pPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-            pPos[i * 3 + 2] = radius * Math.cos(phi);
+            neuronPositions[i * 3]     = x;
+            neuronPositions[i * 3 + 1] = y;
+            neuronPositions[i * 3 + 2] = z;
+            neuronNodes.push(new THREE.Vector3(x, y, z));
         }
-        const pGeo = new THREE.BufferGeometry();
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const particles = new THREE.Points(pGeo, particleMat);
-        cyberGroup.add(particles);
 
-        // Position slightly off-center for balanced hero composition
-        cyberGroup.position.set(0, 0, 0);
+        // Synaptic connection lines between neighboring neurons (< 3.0 distance)
+        const linePositions = [];
+        for (let i = 0; i < neuronCount; i++) {
+            for (let j = i + 1; j < neuronCount; j++) {
+                const dist = neuronNodes[i].distanceTo(neuronNodes[j]);
+                if (dist < 2.8) {
+                    linePositions.push(
+                        neuronNodes[i].x, neuronNodes[i].y, neuronNodes[i].z,
+                        neuronNodes[j].x, neuronNodes[j].y, neuronNodes[j].z
+                    );
+                }
+            }
+        }
 
-        // 4. Mouse interaction & GSAP animations
+        // Neuron point cloud
+        const neuronGeo = new THREE.BufferGeometry();
+        neuronGeo.setAttribute('position', new THREE.BufferAttribute(neuronPositions, 3));
+        const neuronMat = new THREE.PointsMaterial({
+            color: 0xf59e0b, // Amber Gold synaptic nodes
+            size: 0.28,
+            transparent: true,
+            opacity: 0.95
+        });
+        const brainCloud = new THREE.Points(neuronGeo, neuronMat);
+        mainGroup.add(brainCloud);
+
+        // Synaptic line segments
+        const lineGeo = new THREE.BufferGeometry();
+        lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(linePositions), 3));
+        const lineMat = new THREE.LineBasicMaterial({
+            color: 0x6366f1, // Electric Indigo connections
+            transparent: true,
+            opacity: 0.55
+        });
+        const synapses = new THREE.LineSegments(lineGeo, lineMat);
+        mainGroup.add(synapses);
+
+        // Inner GenAI Processing Core
+        const coreGeo = new THREE.SphereGeometry(2.0, 32, 32);
+        const coreMat = new THREE.MeshBasicMaterial({
+            color: 0xff8c00,
+            transparent: true,
+            opacity: 0.3
+        });
+        const aiCore = new THREE.Mesh(coreGeo, coreMat);
+        mainGroup.add(aiCore);
+
+        // 3. AWS Distributed Cloud Orbital Rings (Microservices in Orbit)
+        const orbitGroup = new THREE.Group();
+        mainGroup.add(orbitGroup);
+
+        const ringMat1 = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.7 });
+        const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.6 });
+
+        const orbitRing1 = new THREE.Mesh(new THREE.TorusGeometry(6.2, 0.08, 16, 64), ringMat1);
+        orbitRing1.rotation.x = Math.PI / 3;
+        orbitGroup.add(orbitRing1);
+
+        const orbitRing2 = new THREE.Mesh(new THREE.TorusGeometry(6.8, 0.06, 16, 64), ringMat2);
+        orbitRing2.rotation.y = Math.PI / 4;
+        orbitGroup.add(orbitRing2);
+
+        // Orbiting Data Packets (Microservice nodes along rings)
+        const packetGeo = new THREE.SphereGeometry(0.25, 16, 16);
+        const packetMat = new THREE.MeshBasicMaterial({ color: 0x10b981 }); // Emerald data packets
+        const packet1 = new THREE.Mesh(packetGeo, packetMat);
+        const packet2 = new THREE.Mesh(packetGeo, packetMat);
+        orbitGroup.add(packet1);
+        orbitGroup.add(packet2);
+
+        // 4. Interaction & GSAP Synapse Burst
         let mouseX = 0;
         let mouseY = 0;
-        let targetSpeedX = 0.006;
-        let targetSpeedY = 0.008;
 
         const onMouseMove = (e) => {
             const rect = container.getBoundingClientRect();
@@ -106,18 +130,25 @@ const Hero3DCanvas = () => {
         };
 
         const onClick = () => {
-            // GSAP pulse burst when clicked/interacted
-            gsap.to(cyberGroup.scale, {
+            // Electrical pulse surge across synaptic nodes and orbital surge
+            gsap.to(mainGroup.scale, {
                 x: 1.25, y: 1.25, z: 1.25,
                 duration: 0.3,
                 ease: 'power2.out',
                 yoyo: true,
                 repeat: 1
             });
-            gsap.to(torusMesh.rotation, {
-                y: torusMesh.rotation.y + Math.PI,
-                duration: 1.2,
+            gsap.to(orbitGroup.rotation, {
+                y: orbitGroup.rotation.y + Math.PI,
+                z: orbitGroup.rotation.z + Math.PI / 2,
+                duration: 1.3,
                 ease: 'power3.out'
+            });
+            gsap.to(lineMat, {
+                opacity: 1.0,
+                duration: 0.3,
+                yoyo: true,
+                repeat: 1
             });
         };
 
@@ -137,17 +168,22 @@ const Hero3DCanvas = () => {
         const animate = () => {
             animId = requestAnimationFrame(animate);
 
-            // Autonomous 3D rotation
-            torusMesh.rotation.x += 0.005;
-            torusMesh.rotation.y += targetSpeedX;
-            icoMesh.rotation.y -= 0.007;
-            icoMesh.rotation.z += 0.004;
-            particles.rotation.y += 0.003;
-            orbMesh.scale.setScalar(1 + Math.sin(Date.now() * 0.003) * 0.12);
+            // Autonomous neural rotation
+            brainCloud.rotation.y += 0.004;
+            synapses.rotation.y += 0.004;
+            aiCore.scale.setScalar(1 + Math.sin(Date.now() * 0.004) * 0.15);
+
+            // Orbiting data packets along ring tracks
+            const time = Date.now() * 0.002;
+            packet1.position.set(Math.cos(time) * 6.2, Math.sin(time) * 6.2 * 0.5, Math.sin(time) * 6.2 * 0.86);
+            packet2.position.set(Math.sin(-time) * 6.8 * 0.7, Math.cos(-time) * 6.8, Math.sin(-time) * 6.8 * 0.7);
+
+            orbitRing1.rotation.z += 0.006;
+            orbitRing2.rotation.x -= 0.005;
 
             // Smooth mouse tilt tracking
-            cyberGroup.rotation.y += (mouseX - cyberGroup.rotation.y) * 0.08;
-            cyberGroup.rotation.x += (mouseY - cyberGroup.rotation.x) * 0.08;
+            mainGroup.rotation.y += (mouseX - mainGroup.rotation.y) * 0.08;
+            mainGroup.rotation.x += (mouseY - mainGroup.rotation.x) * 0.08;
 
             renderer.render(scene, camera);
         };
@@ -171,7 +207,7 @@ const Hero3DCanvas = () => {
         <div
             ref={mountRef}
             className="hero-3d-canvas"
-            title="Interactive 3D Cyber Geometry (Click or Move Mouse)"
+            title="Interactive AI Neural Brain & Distributed Cloud (Click to Pulse Synapses)"
             style={{
                 position: 'absolute',
                 top: '50%',

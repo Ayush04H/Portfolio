@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * Achievements3DCanvas — Dedicated Interactive 3D Trophy / Medal Cage for Achievements & Certifications section.
+ * Achievements3DCanvas — Competitive Algorithmic Apex & Cyber Trophy Monolith
  * Pure Vanilla Three.js + GSAP (Zero @react-three/fiber dependencies / zero ConcurrentRoot errors).
+ * Directly visualizes LeetCode Top 1.1% Global Rank (700+ solved) & AAROHAN 1st Runner-Up victory.
  */
 const Achievements3DCanvas = () => {
     const mountRef = useRef(null);
@@ -22,42 +23,49 @@ const Achievements3DCanvas = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Materials
-        const goldMat    = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.85 });
-        const emeraldMat = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true, transparent: true, opacity: 0.75 });
-        const coreMat    = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: false, transparent: true, opacity: 0.25 });
-
         const group = new THREE.Group();
         scene.add(group);
 
-        // Trophy / Medal Outer Ring
-        const ring1 = new THREE.Mesh(new THREE.TorusGeometry(4.8, 0.8, 16, 64), goldMat);
-        ring1.rotation.x = Math.PI / 4;
-        group.add(ring1);
+        // 1. Trophy Monolith Crystal (Golden Octahedron Frame)
+        const crystalGeo = new THREE.OctahedronGeometry(4.0, 0);
+        const crystalMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.9 });
+        const crystalMesh = new THREE.Mesh(crystalGeo, crystalMat);
+        group.add(crystalMesh);
 
-        // Middle Emerald Octahedron Frame
-        const frame = new THREE.Mesh(new THREE.OctahedronGeometry(3.6, 1), emeraldMat);
-        group.add(frame);
+        // Inner Dodecahedron Core (Algorithmic Logic Core)
+        const coreGeo = new THREE.DodecahedronGeometry(2.4, 0);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: false, transparent: true, opacity: 0.35 });
+        const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+        group.add(coreMesh);
 
-        // Inner Glowing Core Orb
-        const orb = new THREE.Mesh(new THREE.SphereGeometry(2.0, 32, 32), coreMat);
-        group.add(orb);
+        // 2. Orbiting Algorithmic Shields & Data Rings
+        const shieldGeo = new THREE.TorusGeometry(5.2, 0.15, 16, 64);
+        const shieldMat1 = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.8 });
+        const shieldMat2 = new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true, transparent: true, opacity: 0.7 });
 
-        // Orbiting particles (Trophy Sparks)
-        const pCount = 100;
+        const shieldRing1 = new THREE.Mesh(shieldGeo, shieldMat1);
+        shieldRing1.rotation.x = Math.PI / 3;
+        group.add(shieldRing1);
+
+        const shieldRing2 = new THREE.Mesh(shieldGeo, shieldMat2);
+        shieldRing2.rotation.y = Math.PI / 3;
+        group.add(shieldRing2);
+
+        // 3. Victory Sparks (Golden Particle Cloud)
+        const pCount = 130;
         const pPos = new Float32Array(pCount * 3);
         for (let i = 0; i < pCount; i++) {
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos(2 * Math.random() - 1);
-            const radius = 5 + Math.random() * 2;
-            pPos[i * 3]     = radius * Math.sin(phi) * Math.cos(theta);
-            pPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-            pPos[i * 3 + 2] = radius * Math.cos(phi);
+            const r = 5.6 + Math.random() * 2.5;
+            pPos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+            pPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            pPos[i * 3 + 2] = r * Math.cos(phi);
         }
         const pGeo = new THREE.BufferGeometry();
         pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.2, transparent: true, opacity: 0.9 }));
-        group.add(particles);
+        const victorySparks = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.22, transparent: true, opacity: 0.9 }));
+        group.add(victorySparks);
 
         let mouseX = 0, mouseY = 0;
         const onMouseMove = (e) => {
@@ -67,8 +75,9 @@ const Achievements3DCanvas = () => {
         };
 
         const onClick = () => {
-            gsap.to(group.rotation, { y: group.rotation.y + Math.PI, duration: 1.1, ease: 'power3.out' });
-            gsap.to(group.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.out' });
+            gsap.to(group.rotation, { y: group.rotation.y + Math.PI * 1.5, duration: 1.2, ease: 'power3.out' });
+            gsap.to(crystalMesh.scale, { x: 1.3, y: 1.3, z: 1.3, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' });
+            gsap.to(coreMesh.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' });
         };
 
         window.addEventListener('mousemove', onMouseMove);
@@ -85,12 +94,13 @@ const Achievements3DCanvas = () => {
         let animId;
         const animate = () => {
             animId = requestAnimationFrame(animate);
-            ring1.rotation.y += 0.006;
-            ring1.rotation.z += 0.004;
-            frame.rotation.x -= 0.007;
-            frame.rotation.y += 0.005;
-            particles.rotation.y += 0.003;
-            orb.scale.setScalar(1 + Math.sin(Date.now() * 0.004) * 0.1);
+            crystalMesh.rotation.y += 0.007;
+            crystalMesh.rotation.z += 0.004;
+            coreMesh.rotation.x -= 0.009;
+            coreMesh.rotation.y += 0.008;
+            shieldRing1.rotation.z += 0.006;
+            shieldRing2.rotation.x -= 0.005;
+            victorySparks.rotation.y += 0.003;
 
             group.rotation.y += (mouseX - group.rotation.y) * 0.08;
             group.rotation.x += (mouseY - group.rotation.x) * 0.08;
@@ -117,7 +127,7 @@ const Achievements3DCanvas = () => {
         <div
             ref={mountRef}
             className="achievements-3d-canvas"
-            title="Interactive 3D Trophy Sculpture (Click or Move Mouse)"
+            title="Interactive Competitive Trophy Monolith (Click to Pulse)"
             style={{
                 position: 'absolute',
                 top: '18%',

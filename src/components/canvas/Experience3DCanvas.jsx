@@ -3,8 +3,9 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 /**
- * Experience3DCanvas — Dedicated 3D Tech Orbit & Cyber Nodes for Work Experience section.
+ * Experience3DCanvas — Distributed Routing Engine & GenAI Data Pipeline Matrix
  * Pure Vanilla Three.js + GSAP (Zero @react-three/fiber dependencies / zero ConcurrentRoot errors).
+ * Directly visualizes Street Surge (2M+ node routing algorithms) & CereLabs (Vector Similarity Search / GenAI).
  */
 const Experience3DCanvas = () => {
     const mountRef = useRef(null);
@@ -22,39 +23,68 @@ const Experience3DCanvas = () => {
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
-        // Materials
-        const ring1Mat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.85 });
-        const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x6366f1, wireframe: true, transparent: true, opacity: 0.8 });
-        const coreMat  = new THREE.MeshBasicMaterial({ color: 0xffb703, wireframe: false, transparent: true, opacity: 0.3 });
-
         const group = new THREE.Group();
         scene.add(group);
 
-        // Interlocking Torus Rings
-        const ring1 = new THREE.Mesh(new THREE.TorusGeometry(4.5, 0.7, 16, 64), ring1Mat);
-        ring1.rotation.x = Math.PI / 3;
-        group.add(ring1);
+        // 1. Central Routing Hub (PostgreSQL / AWS Core)
+        const hubGeo = new THREE.IcosahedronGeometry(1.6, 1);
+        const hubMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, wireframe: true, transparent: true, opacity: 0.9 });
+        const centralHub = new THREE.Mesh(hubGeo, hubMat);
+        group.add(centralHub);
 
-        const ring2 = new THREE.Mesh(new THREE.TorusGeometry(5.2, 0.5, 16, 64), ring2Mat);
-        ring2.rotation.y = Math.PI / 3;
-        group.add(ring2);
+        // 2. Company Node Clusters (Street Surge, CereLabs, OziBook)
+        const nodePositions = [
+            new THREE.Vector3(-4.5, 3.2, 1.5),  // Street Surge Node
+            new THREE.Vector3(4.8, -1.5, -2.0), // CereLabs Node
+            new THREE.Vector3(-2.0, -4.2, 2.5), // OziBook Node
+            new THREE.Vector3(3.5, 3.8, -1.0),  // AWS EC2 Cluster
+            new THREE.Vector3(-4.0, -2.0, -3.0) // GenAI Vector Store
+        ];
 
-        // Inner Octahedron Core
-        const core = new THREE.Mesh(new THREE.OctahedronGeometry(2.5, 1), coreMat);
-        group.add(core);
+        const nodeGeo = new THREE.SphereGeometry(0.55, 16, 16);
+        const nodeColors = [0xf59e0b, 0x6366f1, 0x8b5cf6, 0x10b981, 0x06b6d4];
+        const nodes = [];
 
-        // Orbiting particles
-        const pCount = 120;
-        const pPos = new Float32Array(pCount * 3);
-        for (let i = 0; i < pCount; i++) {
-            pPos[i * 3]     = (Math.random() - 0.5) * 16;
-            pPos[i * 3 + 1] = (Math.random() - 0.5) * 16;
-            pPos[i * 3 + 2] = (Math.random() - 0.5) * 16;
+        for (let i = 0; i < nodePositions.length; i++) {
+            const mat = new THREE.MeshBasicMaterial({ color: nodeColors[i], wireframe: false, transparent: true, opacity: 0.85 });
+            const mesh = new THREE.Mesh(nodeGeo, mat);
+            mesh.position.copy(nodePositions[i]);
+            group.add(mesh);
+            nodes.push(mesh);
         }
-        const pGeo = new THREE.BufferGeometry();
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.18, transparent: true, opacity: 0.85 }));
-        group.add(particles);
+
+        // 3. Routing Graph Lines connecting Central Hub to all nodes and cross-connecting nodes
+        const lineCoords = [];
+        for (let i = 0; i < nodePositions.length; i++) {
+            lineCoords.push(0, 0, 0, nodePositions[i].x, nodePositions[i].y, nodePositions[i].z);
+            const nextIdx = (i + 1) % nodePositions.length;
+            lineCoords.push(
+                nodePositions[i].x, nodePositions[i].y, nodePositions[i].z,
+                nodePositions[nextIdx].x, nodePositions[nextIdx].y, nodePositions[nextIdx].z
+            );
+        }
+
+        const lineGeo = new THREE.BufferGeometry();
+        lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(lineCoords), 3));
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.5 });
+        const routingGrid = new THREE.LineSegments(lineGeo, lineMat);
+        group.add(routingGrid);
+
+        // 4. Traveling Data Packets along Routing Paths
+        const packetCount = 6;
+        const packets = [];
+        const packetGeo = new THREE.SphereGeometry(0.2, 12, 12);
+        const packetMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+        for (let i = 0; i < packetCount; i++) {
+            const pMesh = new THREE.Mesh(packetGeo, packetMat);
+            group.add(pMesh);
+            packets.push({
+                mesh: pMesh,
+                targetIndex: i % nodePositions.length,
+                progress: Math.random()
+            });
+        }
 
         let mouseX = 0, mouseY = 0;
         const onMouseMove = (e) => {
@@ -64,8 +94,10 @@ const Experience3DCanvas = () => {
         };
 
         const onClick = () => {
-            gsap.to(group.rotation, { y: group.rotation.y + Math.PI, duration: 1.2, ease: 'power3.out' });
-            gsap.to(core.scale, { x: 1.4, y: 1.4, z: 1.4, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.out' });
+            // Accelerate routing pulses and spin central hub
+            gsap.to(group.rotation, { y: group.rotation.y + Math.PI, duration: 1.1, ease: 'power3.out' });
+            gsap.to(centralHub.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.out' });
+            gsap.to(lineMat, { opacity: 1.0, duration: 0.25, yoyo: true, repeat: 1 });
         };
 
         window.addEventListener('mousemove', onMouseMove);
@@ -82,10 +114,21 @@ const Experience3DCanvas = () => {
         let animId;
         const animate = () => {
             animId = requestAnimationFrame(animate);
-            ring1.rotation.z += 0.007;
-            ring2.rotation.x += 0.006;
-            core.rotation.y -= 0.01;
-            particles.rotation.y += 0.004;
+            centralHub.rotation.y += 0.012;
+            centralHub.rotation.z += 0.008;
+            routingGrid.rotation.y += 0.003;
+
+            // Animate data packets traveling between central hub (0,0,0) and target nodes
+            for (let i = 0; i < packets.length; i++) {
+                const p = packets[i];
+                p.progress += 0.015;
+                if (p.progress >= 1) {
+                    p.progress = 0;
+                    p.targetIndex = (p.targetIndex + 1) % nodePositions.length;
+                }
+                const target = nodePositions[p.targetIndex];
+                p.mesh.position.lerpVectors(new THREE.Vector3(0, 0, 0), target, p.progress);
+            }
 
             group.rotation.y += (mouseX - group.rotation.y) * 0.08;
             group.rotation.x += (mouseY - group.rotation.x) * 0.08;
@@ -112,7 +155,7 @@ const Experience3DCanvas = () => {
         <div
             ref={mountRef}
             className="experience-3d-canvas"
-            title="Interactive 3D Tech Orbit (Click or Move Mouse)"
+            title="Interactive Distributed Routing Engine & GenAI Pipeline (Click to Optimize)"
             style={{
                 position: 'absolute',
                 top: '12%',
