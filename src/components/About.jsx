@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { GraduationCap, Calendar, Award, Sparkles, Code2, Layers } from 'lucide-react';
+import { Calendar, Award, Code2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Card3D from './Card3D';
 import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -10,164 +11,89 @@ const About = () => {
     const sectionRef = useRef(null);
 
     const stats = [
-        { icon: <Calendar size={28} />, value: '1+', label: 'Years Experience', color: '#00f2fe', bgImage: '/stats-coding-bg.png' },
-        { icon: <Sparkles size={28} />, value: '12+', label: 'Production Releases', color: '#a855f7', bgImage: '/stats-projects-bg.png' },
-        { icon: <Award size={28} />, value: '8.90', label: 'B.Tech CGPA', color: '#4facfe', bgImage: '/stats-cgpa-bg.png' }
+        { icon: <Calendar size={24} />, value: '1+', label: 'Years Experience', color: 'var(--color-amber)' },
+        { icon: <Code2 size={24} />,    value: '12+', label: 'Prod Releases',   color: 'var(--color-indigo)' },
+        { icon: <Award size={24} />,    value: '8.90', label: 'B.Tech CGPA',    color: 'var(--color-violet)' }
     ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo(
-                '.about-image-container',
-                { opacity: 0, x: -100, rotateY: -15, scale: 0.9 },
+            gsap.fromTo('.about-image-side',
+                { opacity: 0, x: -50 },
                 {
-                    opacity: 1,
-                    x: 0,
-                    rotateY: 0,
-                    scale: 1,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 85%',
-                        end: 'top 45%',
-                        scrub: 1,
-                    }
+                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' }
                 }
             );
-
-            gsap.fromTo(
-                '.about-text',
-                { opacity: 0, x: 100 },
+            gsap.fromTo('.about-text-side',
+                { opacity: 0, x: 50 },
                 {
-                    opacity: 1,
-                    x: 0,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: 'top 85%',
-                        end: 'top 45%',
-                        scrub: 1,
-                    }
+                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' }
                 }
             );
-
-            const statsCards = gsap.utils.toArray('.stat-card');
-            statsCards.forEach((card, index) => {
-                gsap.fromTo(
-                    card,
-                    { opacity: 0, y: 80, scale: 0.85, rotateX: 12 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        rotateX: 0,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 90%',
-                            end: 'top 65%',
-                            scrub: 1,
-                        }
-                    }
-                );
-            });
+            gsap.fromTo('.about-stat',
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.about-stats-row', start: 'top 88%' }
+                }
+            );
         }, sectionRef);
-
         return () => ctx.revert();
     }, []);
 
-    // 3D Perspective Card Tilt calculation
-    const handleCardTilt = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -12;
-        const rotateY = ((x - centerX) / centerX) * 12;
-
-        gsap.to(card, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            scale: 1.03,
-            duration: 0.4,
-            ease: 'power2.out',
-            transformPerspective: 1000
-        });
-    };
-
-    const handleCardReset = (e) => {
-        gsap.to(e.currentTarget, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.4)'
-        });
-    };
-
     return (
         <section id="about" className="section about" ref={sectionRef}>
-            <div className="about-decorative-bg"></div>
-
+            <div className="about-glow" aria-hidden="true" />
             <div className="container">
                 <div className="section-header">
                     <h2 className="section-title">About Me</h2>
-                    <div className="title-underline">
-                        <span className="underline-dot"></span>
-                    </div>
+                    <div className="title-underline"><span className="underline-dot" /></div>
                     <p className="section-description">
-                        Architecting, building, and scaling distributed backend systems and full-stack web platforms
+                        Architecting and scaling distributed backend systems and full-stack platforms
                     </p>
                 </div>
 
-                <div className="about-content">
-                    <div className="about-main-wrapper">
-                        <div 
-                            className="about-image-container holographic-card"
-                            onMouseMove={handleCardTilt}
-                            onMouseLeave={handleCardReset}
-                            style={{ padding: '1rem', cursor: 'pointer' }}
-                        >
-                            <img src="/about-illustration.png" alt="Developer setup" className="about-image-main" />
-                            <div className="about-image-overlay-badge">
-                                <Code2 size={16} color="#00f2fe" />
-                                <span>SYSTEMS ARCHITECT & DEV</span>
+                <div className="about-wrapper">
+                    {/* Image */}
+                    <div className="about-image-side">
+                        <Card3D className="about-image-card" maxTilt={10}>
+                            <img src="/about-illustration.png" alt="Developer" className="about-img" />
+                            <div className="about-img-badge">
+                                <Code2 size={13} color="var(--color-amber)" />
+                                <span>Systems Architect</span>
                             </div>
-                        </div>
-
-                        <div className="about-text">
-                            <p className="about-paragraph">
-                                I'm a customer-focused <strong className="text-gradient">Software Development Engineer</strong> with over <strong className="highlight-text">1+ years</strong> of professional experience designing, developing, and running highly available distributed systems and backend microservices.
-                            </p>
-                            <p className="about-paragraph">
-                                Currently at <strong className="highlight-text">Street Surge</strong> (Gurgaon), I architect full-stack platforms using <strong>Spring Boot</strong>, <strong>React</strong>, and <strong>Python</strong>, serving 500+ daily active users and optimizing routing algorithms that process 2M+ nodes to deliver substantial enterprise cost savings ($15K+).
-                            </p>
-                            <p className="about-paragraph">
-                                Holding a Bachelor of Technology in IT from Bharati Vidyapeeth's College of Engineering with a cumulative GPA of <strong className="text-gradient">8.90 / 10</strong>, I possess profound command over <strong>Java</strong>, <strong>AWS Cloud Infrastructure</strong> (EC2, RDS, Cognito, Secrets Manager), and modern CI/CD automation pipelines.
-                            </p>
-                        </div>
+                        </Card3D>
                     </div>
 
-                    <div className="about-stats">
-                        {stats.map((stat, index) => (
-                            <div
-                                key={index}
-                                className="stat-card holographic-card"
-                                style={{ '--stat-color': stat.color }}
-                                onMouseMove={handleCardTilt}
-                                onMouseLeave={handleCardReset}
-                            >
-                                <div className="stat-card-bg" style={{ backgroundImage: `url(${stat.bgImage})` }}></div>
-                                <div className="stat-icon">
-                                    {stat.icon}
-                                </div>
-                                <div className="stat-value">{stat.value}</div>
-                                <div className="stat-label">{stat.label}</div>
-                                <div className="stat-glow"></div>
-                            </div>
-                        ))}
+                    {/* Text */}
+                    <div className="about-text-side">
+                        <p className="about-para">
+                            I'm a <strong className="text-gradient">Software Development Engineer</strong> with
+                            over <strong className="highlight-text">1+ years</strong> of professional experience
+                            designing and running highly available distributed systems and microservices.
+                        </p>
+                        <p className="about-para">
+                            Currently at <strong className="highlight-text">Street Surge</strong> (Gurgaon), I architect
+                            full-stack platforms using <strong>Spring Boot</strong>, <strong>React</strong>, and{' '}
+                            <strong>Python</strong>, serving 500+ daily users and optimizing routing over 2M+ nodes.
+                        </p>
+                        <p className="about-para">
+                            B.Tech in IT from Bharati Vidyapeeth's College of Engineering with a cumulative GPA of{' '}
+                            <strong className="text-gradient">8.90 / 10</strong>. Deep expertise in{' '}
+                            <strong>Java</strong>, <strong>AWS Cloud</strong>, and CI/CD automation.
+                        </p>
+
+                        <div className="about-stats-row">
+                            {stats.map((s, i) => (
+                                <Card3D key={i} className="about-stat" style={{ '--stat-color': s.color }} maxTilt={14}>
+                                    <div className="stat-icon-wrap">{s.icon}</div>
+                                    <div className="stat-val">{s.value}</div>
+                                    <div className="stat-lbl">{s.label}</div>
+                                </Card3D>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

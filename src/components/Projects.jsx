@@ -1,280 +1,202 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Github, Sparkles, Layers, X, Activity, Cpu, Server, ShieldCheck } from 'lucide-react';
+import { ExternalLink, Github, X, Activity, Cpu, Server, ShieldCheck, Layers } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Card3D from './Card3D';
 import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
     const sectionRef = useRef(null);
-    const [selectedProject, setSelectedProject] = useState(null);
+    const [selected, setSelected] = useState(null);
 
     const projects = [
         {
             title: 'Fleet-Optimization Platform',
-            badge: 'Featured Enterprise Telematics',
-            color: '#00f2fe',
-            description: 'An enterprise fleet telematics platform engineered with Java, Spring Boot 3, React, and PostgreSQL to track real-time vehicle locations and automate dispatch operations with sub-second latency.',
+            badge: 'Enterprise Telematics',
+            color: 'var(--color-amber)',
+            description: 'Enterprise fleet telematics platform with real-time vehicle tracking, automated dispatch, and optimized routing algorithms processing 2M+ nodes.',
             features: [
-                'Launched enterprise telematics application automating dispatch operations across complex logistics networks',
-                'Enforced scheduling validation logic to uphold driver work-hour regulations and cargo capacity limits, eliminating scheduling conflicts completely',
-                'Integrated live location broadcasting via WebSockets for low-latency monitoring and instant route adjustment',
-                'Scheduled background CRON jobs for automated severe weather tracking and rerouting advisories',
-                'Robust RESTful API architecture connecting microservices and enterprise analytics engines'
+                'Live location broadcasting via WebSockets < 50ms latency',
+                'Scheduling validation for driver work-hour compliance',
+                'Automated severe-weather rerouting with CRON jobs',
+                'Routing saving $15K+ in fleet fuel costs',
+                'Multi-tenant AWS infrastructure — 99.5% availability'
             ],
-            tech: ['Java', 'Spring Boot 3', 'React', 'PostgreSQL', 'WebSockets', 'REST API', 'CRON Automation'],
+            tech: ['Java', 'Spring Boot 3', 'React', 'PostgreSQL', 'WebSockets', 'AWS'],
             link: 'https://fleet-optimization.ayushpersonal.space/',
             github: 'https://github.com/Ayush04H/Fleet-Optimization',
-            bgImage: '/projects-illustration.png',
-            architecture: {
-                throughput: '2M+ Nodes Processed/Day',
-                latency: '< 50ms WebSocket Broadcast',
-                database: 'PostgreSQL Spatial + Connection Pool',
-                savings: '$15K+ Annual Operational Cost Savings'
+            arch: {
+                throughput: '2M+ Nodes / Day',
+                latency:    '< 50ms WebSocket',
+                database:   'PostgreSQL Spatial',
+                impact:     '$15K+ Fuel Savings'
             }
         },
         {
             title: 'Loan Approval ML Engine',
-            badge: 'High-Concurrency Inference Service',
-            color: '#a855f7',
-            description: 'A high-concurrency machine learning inference microservice that predicts loan approval outcomes across 10K+ historical records with sub-20ms response SLAs.',
+            badge: 'ML Inference',
+            color: 'var(--color-indigo)',
+            description: 'High-concurrency ML inference microservice predicting loan approvals across 10K+ records with sub-20ms response SLAs and async FastAPI endpoints.',
             features: [
-                'Developed ML inference service evaluating 10K+ historical loan records with high accuracy metrics',
-                'Accelerated prediction response times down to under 20 ms per request via optimized matrix operations',
-                'Built high-concurrency asynchronous REST APIs using FastAPI and Pydantic validation schemas',
-                'Containerized backend workloads with Docker for reliable multi-environment deployments',
-                'Produced interactive web dashboards using Streamlit supporting sub-100 ms UI SLAs for financial analysts'
+                'ML model evaluating 10K+ historical records',
+                'Sub-20ms prediction via optimized matrix ops',
+                'Async REST APIs with FastAPI & Pydantic validation',
+                'Containerized with Docker for multi-env deploys',
+                'Interactive Streamlit dashboard — < 100ms SLA'
             ],
-            tech: ['Python', 'Machine Learning', 'FastAPI', 'Streamlit', 'Docker', 'Async REST'],
+            tech: ['Python', 'Machine Learning', 'FastAPI', 'Streamlit', 'Docker'],
             link: 'https://loan-predication-ayush04h.streamlit.app/',
             github: null,
-            bgImage: '/loan-prediction-bg.png',
-            architecture: {
-                throughput: '10K+ Historical Records Inspected',
-                latency: '< 20ms Prediction Inference SLA',
-                database: 'In-Memory ML Model Cache',
-                savings: '99.9% Automated Risk Assessment'
+            arch: {
+                throughput: '10K+ Records',
+                latency:    '< 20ms Inference',
+                database:   'In-Memory ML Cache',
+                impact:     '99.9% Risk Automation'
             }
         },
         {
             title: 'LLM-Doc-Summarizer',
-            badge: 'Generative AI & Asynchronous NLP',
-            color: '#38bdf8',
-            description: 'An asynchronous document processing application utilizing Python and open-source NLP transformer models (BART) for dynamic text summarization across complex document structures.',
+            badge: 'GenAI & NLP',
+            color: 'var(--color-violet)',
+            description: 'Async document processing app using BART transformer models for dynamic text summarization with vectorized embedding storage for semantic retrieval.',
             features: [
-                'Programmed asynchronous document processing application using advanced BART transformer models',
-                'Designed modular backend architecture using FastAPI microservices and background task workers',
-                'Accelerated unstructured document upload, parsing, and ingestion turnaround times significantly',
-                'Configured automated CI/CD pipelines via GitHub Actions for seamless continuous deployment',
-                'Containerized backend workloads in Docker to ensure high service availability and rapid horizontal scaling'
+                'Async processing with BART transformer models',
+                'Modular FastAPI microservice + background workers',
+                'Automated CI/CD via GitHub Actions',
+                'Docker containerization for high availability',
+                'Vectorized embeddings for semantic retrieval'
             ],
-            tech: ['Python', 'React', 'GenAI / BART Transformers', 'FastAPI', 'Docker', 'GitHub Actions'],
+            tech: ['Python', 'React', 'BART', 'FastAPI', 'Docker', 'GitHub Actions'],
             link: null,
             github: 'https://github.com/Ayush04H/LLM-Doc-Summarizer',
-            bgImage: '/llm-doc-bg.png',
-            architecture: {
-                throughput: 'Multi-Page Complex Document Parsing',
-                latency: 'Async Background Processing Queue',
-                database: 'Vectorized Embeddings & Summaries',
-                savings: '85% Document Review Time Saved'
+            arch: {
+                throughput: 'Multi-Page Parsing',
+                latency:    'Async Background Queue',
+                database:   'Vector Embeddings',
+                impact:     '85% Review Time Saved'
             }
         }
     ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            const cards = gsap.utils.toArray('.project-card');
-            cards.forEach((card, index) => {
-                gsap.fromTo(
-                    card,
-                    { opacity: 0, y: 120, scale: 0.9, rotateX: 12 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        rotateX: 0,
-                        duration: 1,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 85%',
-                            end: 'top 55%',
-                            scrub: 1,
-                        }
-                    }
-                );
-            });
+            gsap.fromTo('.project-card',
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.projects-grid', start: 'top 85%' }
+                }
+            );
         }, sectionRef);
-
         return () => ctx.revert();
     }, []);
-
-    // 3D Perspective Card Tilt calculation
-    const handleCardTilt = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
-
-        gsap.to(card, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            scale: 1.02,
-            duration: 0.4,
-            ease: 'power2.out',
-            transformPerspective: 1000
-        });
-    };
-
-    const handleCardReset = (e) => {
-        gsap.to(e.currentTarget, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.4)'
-        });
-    };
 
     return (
         <section id="projects" className="section projects" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Featured Engineering Projects</h2>
-                    <div className="title-underline">
-                        <span className="underline-dot"></span>
-                    </div>
+                    <h2 className="section-title">Featured Projects</h2>
+                    <div className="title-underline"><span className="underline-dot" /></div>
                     <p className="section-description">
-                        Architecting full-stack distributed platforms, real-time telematics, and high-concurrency AI/ML inference services
+                        Distributed platforms, real-time telematics, and high-concurrency ML inference services
                     </p>
                 </div>
 
                 <div className="projects-grid">
-                    {projects.map((project, index) => (
-                        <div 
-                            key={index} 
-                            className="project-card holographic-card"
-                            style={{ '--project-color': project.color }}
-                            onMouseMove={handleCardTilt}
-                            onMouseLeave={handleCardReset}
+                    {projects.map((p, i) => (
+                        <Card3D
+                            key={i}
+                            className="project-card"
+                            style={{ '--proj-color': p.color }}
+                            maxTilt={8}
+                            inner3D={false}
                         >
-                            <div className="project-card-bg" style={{ backgroundImage: `url(${project.bgImage})` }}></div>
-                            <div className="project-content">
-                                <div className="project-header-top">
-                                    {project.badge && (
-                                        <div className="project-badge">
-                                            <Sparkles size={14} />
-                                            <span>{project.badge}</span>
-                                        </div>
-                                    )}
-                                    <button 
-                                        className="arch-inspect-btn"
-                                        onClick={() => setSelectedProject(project)}
-                                    >
-                                        <Layers size={15} />
-                                        <span>Inspect Architecture</span>
+                            <div className="proj-top-bar"></div>
+                            <div className="proj-body card-3d-inner">
+                                <div className="proj-header">
+                                    <span className="proj-badge">{p.badge}</span>
+                                    <button className="arch-trigger" onClick={() => setSelected(p)}>
+                                        <Layers size={13} /> Arch
                                     </button>
                                 </div>
 
-                                <h3 className="project-title">{project.title}</h3>
-                                <p className="project-description">{project.description}</p>
+                                <h3 className="proj-title">{p.title}</h3>
+                                <p className="proj-desc">{p.description}</p>
 
-                                <div className="project-features">
-                                    <h4 className="features-title">System Highlights:</h4>
-                                    <ul className="features-list">
-                                        {project.features.map((feature, idx) => (
-                                            <li key={idx}>{feature}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                <div className="project-tech">
-                                    {project.tech.map((tech, techIdx) => (
-                                        <span key={techIdx} className="tech-tag">
-                                            {tech}
-                                        </span>
+                                <ul className="proj-features">
+                                    {p.features.map((f, fi) => (
+                                        <li key={fi} className="proj-feature">
+                                            <span className="feat-dot" />
+                                            <span>{f}</span>
+                                        </li>
                                     ))}
+                                </ul>
+
+                                <div className="proj-tech">
+                                    {p.tech.map((t, ti) => <span key={ti} className="tech-chip">{t}</span>)}
                                 </div>
 
-                                <div className="project-links">
-                                    {project.link && (
-                                        <a
-                                            href={project.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="project-link"
-                                        >
-                                            <ExternalLink size={18} />
-                                            Live Demo
+                                <div className="proj-links">
+                                    {p.link && (
+                                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="proj-link proj-link-primary">
+                                            <ExternalLink size={15} /> Live Demo
                                         </a>
                                     )}
-                                    {project.github && (
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="project-link"
-                                        >
-                                            <Github size={18} />
-                                            Source Code
+                                    {p.github && (
+                                        <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj-link proj-link-ghost">
+                                            <Github size={15} /> Source
                                         </a>
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </Card3D>
                     ))}
                 </div>
             </div>
 
-            {/* Interactive Architecture Blueprint Modal */}
-            {selectedProject && (
-                <div className="arch-modal-overlay animate-fadeIn" onClick={() => setSelectedProject(null)}>
-                    <div className="arch-modal-card holographic-card" onClick={(e) => e.stopPropagation()}>
-                        <button className="arch-modal-close" onClick={() => setSelectedProject(null)}>
-                            <X size={24} />
+            {/* Architecture Modal */}
+            {selected && (
+                <div className="modal-overlay animate-fadeIn" onClick={() => setSelected(null)}>
+                    <div className="modal-panel" onClick={e => e.stopPropagation()}>
+                        <div className="modal-accent" style={{ background: selected.color }} />
+                        <button className="modal-close" onClick={() => setSelected(null)}>
+                            <X size={18} />
                         </button>
 
-                        <div className="arch-modal-header">
-                            <Layers size={28} color="#00f2fe" />
+                        <div className="modal-head">
+                            <Layers size={22} style={{ color: selected.color || 'var(--color-amber)' }} />
                             <div>
-                                <h3 className="arch-modal-title">{selectedProject.title} — System Architecture</h3>
-                                <p className="arch-modal-subtitle">Live Telemetry & Production Specifications</p>
+                                <h3 className="modal-title">{selected.title}</h3>
+                                <p className="modal-sub">System Architecture · Production Specs</p>
                             </div>
                         </div>
 
-                        <div className="arch-metrics-grid">
-                            <div className="arch-metric-box">
-                                <Activity size={22} color="#00f2fe" />
-                                <span className="arch-metric-label">System Throughput</span>
-                                <span className="arch-metric-val">{selectedProject.architecture.throughput}</span>
-                            </div>
-                            <div className="arch-metric-box">
-                                <Cpu size={22} color="#a855f7" />
-                                <span className="arch-metric-label">Latency SLA</span>
-                                <span className="arch-metric-val">{selectedProject.architecture.latency}</span>
-                            </div>
-                            <div className="arch-metric-box">
-                                <Server size={22} color="#4facfe" />
-                                <span className="arch-metric-label">Data Layer / Cache</span>
-                                <span className="arch-metric-val">{selectedProject.architecture.database}</span>
-                            </div>
-                            <div className="arch-metric-box">
-                                <ShieldCheck size={22} color="#38bdf8" />
-                                <span className="arch-metric-label">Enterprise Impact</span>
-                                <span className="arch-metric-val">{selectedProject.architecture.savings}</span>
-                            </div>
+                        <div className="modal-metrics">
+                            {[
+                                { Icon: Activity,    label: 'Throughput',     val: selected.arch.throughput, c: 'var(--color-amber)'   },
+                                { Icon: Cpu,         label: 'Latency SLA',    val: selected.arch.latency,    c: 'var(--color-indigo)'  },
+                                { Icon: Server,      label: 'Data Layer',     val: selected.arch.database,   c: 'var(--color-violet)'  },
+                                { Icon: ShieldCheck, label: 'Business Impact', val: selected.arch.impact,    c: 'var(--color-emerald)' },
+                            ].map(({ Icon, label, val, c }) => (
+                                <div key={label} className="metric-tile">
+                                    <Icon size={17} style={{ color: c }} />
+                                    <span className="metric-lbl">{label}</span>
+                                    <span className="metric-val">{val}</span>
+                                </div>
+                            ))}
                         </div>
 
-                        <div className="arch-modal-footer">
-                            <p className="arch-footer-note">✨ ATS Verified High-Availability Architecture designed by Ayush</p>
-                            {selectedProject.link && (
-                                <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-glow">
-                                    Launch Production Instance
+                        <div className="modal-footer">
+                            {selected.link && (
+                                <a href={selected.link} target="_blank" rel="noopener noreferrer" className="btn btn-glow">
+                                    <ExternalLink size={15} /> Live Demo
+                                </a>
+                            )}
+                            {selected.github && (
+                                <a href={selected.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                                    <Github size={15} /> View Code
                                 </a>
                             )}
                         </div>

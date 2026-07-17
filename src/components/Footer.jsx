@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Github, Linkedin, Mail, Code2 } from 'lucide-react';
+import { Github, Linkedin, Mail, Code2, ArrowUp } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -12,106 +12,80 @@ const Footer = () => {
         { name: 'Education', href: '#education' },
         { name: 'Experience', href: '#experience' },
         { name: 'Projects', href: '#projects' },
+        { name: 'Achievements', href: '#achievements' },
         { name: 'Contact', href: '#contact' }
     ];
 
     const socialLinks = [
-        {
-            icon: <Github size={20} />,
-            href: 'https://github.com/Ayush04H',
-            label: 'GitHub'
-        },
-        {
-            icon: <Linkedin size={20} />,
-            href: 'http://www.linkedin.com/in/ayush-srivastava-aks04102002',
-            label: 'LinkedIn'
-        },
-        {
-            icon: <Mail size={20} />,
-            href: 'mailto:ayush050419@gmail.com',
-            label: 'Email'
-        }
+        { icon: <Github size={18} />, href: 'https://github.com/Ayush04H', label: 'GitHub' },
+        { icon: <Linkedin size={18} />, href: 'http://www.linkedin.com/in/ayush-srivastava-aks04102002', label: 'LinkedIn' },
+        { icon: <Mail size={18} />, href: 'mailto:ayush050419@gmail.com', label: 'Email' }
     ];
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <footer className="footer">
-            <div className="footer-bg" style={{ backgroundImage: "url('/footer-bg.png')" }}></div>
-            <div className="footer-decorative-top">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M0,0 C300,80 600,40 900,60 C1050,70 1150,100 1200,120 L1200,0 L0,0 Z" fill="url(#footerGradient)"></path>
-                    <defs>
-                        <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style={{ stopColor: '#667eea', stopOpacity: 0.1 }} />
-                            <stop offset="50%" style={{ stopColor: '#764ba2', stopOpacity: 0.1 }} />
-                            <stop offset="100%" style={{ stopColor: '#f093fb', stopOpacity: 0.1 }} />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
+            <div className="footer-glow" aria-hidden="true" />
+            <div className="footer-top-divider" />
 
             <div className="container">
                 <div className="footer-content">
-                    <div className="footer-section footer-about">
-                        <div className="footer-logo-container">
-                            <div className="footer-logo-icon">
-                                <Code2 size={28} strokeWidth={2.5} />
+                    {/* Brand column */}
+                    <div className="footer-brand">
+                        <div className="footer-logo-row">
+                            <div className="footer-logo-box">
+                                <Code2 size={24} color="var(--color-amber)" />
                             </div>
-                            <h3 className="footer-logo">AKS</h3>
+                            <span className="footer-logo-text">AKS</span>
                         </div>
-                        <p className="footer-description">
-                            Software Development Engineer passionate about creating innovative
-                            solutions with AI/ML and modern web technologies.
+                        <p className="footer-tagline">
+                            Architecting scalable distributed backend systems, high-concurrency microservices, and AI inference engines.
                         </p>
-                        <div className="footer-social">
-                            {socialLinks.map((social, index) => (
-                                <a
-                                    key={index}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="footer-social-link"
-                                    aria-label={social.label}
-                                >
-                                    {social.icon}
+                        <div className="footer-social-row">
+                            {socialLinks.map((s, i) => (
+                                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label={s.label}>
+                                    {s.icon}
                                 </a>
                             ))}
                         </div>
                     </div>
 
-                    <div className="footer-section">
-                        <h4 className="footer-title">Quick Links</h4>
-                        <ul className="footer-links">
-                            {quickLinks.map((link, index) => (
-                                <li key={index}>
-                                    <a href={link.href} className="footer-link">
-                                        <span className="link-arrow">→</span>
-                                        {link.name}
-                                    </a>
-                                </li>
+                    {/* Quick links */}
+                    <div className="footer-col">
+                        <h4 className="footer-col-title">Navigation</h4>
+                        <div className="footer-links-grid">
+                            {quickLinks.map((link, i) => (
+                                <a key={i} href={link.href} className="footer-link">
+                                    <span className="footer-link-dot" />
+                                    <span>{link.name}</span>
+                                </a>
                             ))}
-                        </ul>
+                        </div>
                     </div>
 
-                    <div className="footer-section">
-                        <h4 className="footer-title">Get In Touch</h4>
-                        <ul className="footer-contact">
-                            <li>
-                                <a href="mailto:ayush050419@gmail.com" className="footer-link">
-                                    <Mail size={16} />
-                                    ayush050419@gmail.com
-                                </a>
-                            </li>
-                            <li className="footer-location">
-                                <span className="location-icon">📍</span>
-                                Gurgaon, India
-                            </li>
-                        </ul>
+                    {/* Status & Location */}
+                    <div className="footer-col">
+                        <h4 className="footer-col-title">Engineering Status</h4>
+                        <div className="footer-status-box">
+                            <div className="status-indicator">
+                                <span className="status-dot-pulse" />
+                                <span>Systems Operational (99.5% Uptime)</span>
+                            </div>
+                            <p className="footer-loc">📍 Gurgaon, India · Open to Opportunities</p>
+                            <button onClick={scrollToTop} className="btn-scroll-top">
+                                <span>Back to top</span>
+                                <ArrowUp size={15} />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div className="footer-bottom">
-                    <p className="footer-copyright">
-                        © {currentYear} Ayush Kumar Srivastava. All rights reserved.
+                    <p className="footer-copy">
+                        © {currentYear} Ayush Kumar Srivastava. Built with React, Three.js & GSAP.
                     </p>
                 </div>
             </div>

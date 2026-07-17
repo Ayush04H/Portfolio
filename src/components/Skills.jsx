@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import InteractiveWidget from './interactive/InteractiveWidget';
+import Card3D from './Card3D';
 import './Skills.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,120 +12,71 @@ const Skills = () => {
     const skillCategories = [
         {
             category: 'Languages & Fundamentals',
-            skills: ['Java', 'Python', 'C++', 'SQL', 'JavaScript', 'Bash', 'Data Structures & Algorithms', 'Object-Oriented Design (OOD)'],
-            color: '#00f2fe'
+            skills: ['Java', 'Python', 'C++', 'SQL', 'JavaScript', 'Bash', 'DSA', 'OOD'],
+            color: 'var(--color-amber)',
+            icon: '{ }'
         },
         {
             category: 'Backend & Web Frameworks',
-            skills: ['Spring Boot 3', 'React', 'Django', 'FastAPI', 'RESTful APIs', 'Microservices Architecture', 'WebSockets', 'Nginx'],
-            color: '#a855f7'
+            skills: ['Spring Boot 3', 'React', 'Django', 'FastAPI', 'REST APIs', 'Microservices', 'WebSockets', 'Nginx'],
+            color: 'var(--color-indigo)',
+            icon: '⚙'
         },
         {
             category: 'Cloud, DevOps & Systems',
-            skills: ['AWS (EC2, RDS, Cognito, S3, IAM)', 'Docker', 'Kubernetes', 'Linux', 'GitHub Actions', 'CI/CD Pipelines', 'Distributed Systems'],
-            color: '#4facfe'
+            skills: ['AWS (EC2, RDS, Cognito, S3)', 'Docker', 'Kubernetes', 'Linux', 'GitHub Actions', 'CI/CD'],
+            color: 'var(--color-violet)',
+            icon: '☁'
         },
         {
             category: 'Data, AI & Best Practices',
-            skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Machine Learning', 'PyTorch', 'LLMs & GenAI', 'ETL Pipelines', 'Unit Testing / TDD', 'Agile / Scrum', 'Git'],
-            color: '#38bdf8'
+            skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'ML / PyTorch', 'LLMs & GenAI', 'ETL Pipelines', 'TDD', 'Agile'],
+            color: 'var(--color-emerald)',
+            icon: '◈'
         }
     ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            const cards = gsap.utils.toArray('.skill-category');
-            cards.forEach((card, index) => {
-                gsap.fromTo(
-                    card,
-                    { opacity: 0, y: 100, scale: 0.88, rotateX: 14 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        rotateX: 0,
-                        duration: 1,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 90%',
-                            end: 'top 65%',
-                            scrub: 1,
-                        }
-                    }
-                );
-            });
+            gsap.fromTo('.skill-card',
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.skills-grid', start: 'top 85%' }
+                }
+            );
         }, sectionRef);
-
         return () => ctx.revert();
     }, []);
-
-    // 3D Perspective Card Tilt calculation
-    const handleCardTilt = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -10;
-        const rotateY = ((x - centerX) / centerX) * 10;
-
-        gsap.to(card, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            scale: 1.02,
-            duration: 0.4,
-            ease: 'power2.out',
-            transformPerspective: 1000
-        });
-    };
-
-    const handleCardReset = (e) => {
-        gsap.to(e.currentTarget, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.4)'
-        });
-    };
 
     return (
         <section id="skills" className="section skills" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Technical Skills & System Hub</h2>
-                    <div className="title-underline">
-                        <span className="underline-dot"></span>
-                    </div>
+                    <h2 className="section-title">Technical Skills</h2>
+                    <div className="title-underline"><span className="underline-dot" /></div>
                     <p className="section-description">
-                        Explore interactive microservices state simulations and my complete ATS engineering stack
+                        My engineering stack — scalable microservices, cloud infrastructure, and AI systems
                     </p>
                 </div>
 
-                {/* Interactive Rive / Canvas State Machine Widget */}
-                <InteractiveWidget />
-
                 <div className="skills-grid">
-                    {skillCategories.map((category, index) => (
-                        <div 
-                            key={index} 
-                            className="skill-category holographic-card"
-                            style={{ '--category-color': category.color }}
-                            onMouseMove={handleCardTilt}
-                            onMouseLeave={handleCardReset}
+                    {skillCategories.map((cat, i) => (
+                        <Card3D
+                            key={i}
+                            className="skill-card"
+                            style={{ '--cat-color': cat.color }}
+                            maxTilt={10}
                         >
-                            <div className="skill-category-bg" style={{ backgroundImage: "url('/skills-bg.png')" }}></div>
-                            <h3 className="category-title">{category.category}</h3>
-                            <div className="skills-list">
-                                {category.skills.map((skill, skillIndex) => (
-                                    <div key={skillIndex} className="skill-tag">
-                                        {skill}
-                                    </div>
+                            <div className="cat-accent-top"></div>
+                            <div className="cat-icon">{cat.icon}</div>
+                            <h3 className="cat-title">{cat.category}</h3>
+                            <div className="skills-pills">
+                                {cat.skills.map((s, si) => (
+                                    <span key={si} className="skill-pill">{s}</span>
                                 ))}
                             </div>
-                        </div>
+                        </Card3D>
                     ))}
                 </div>
             </div>

@@ -1,141 +1,175 @@
 .achievements {
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-primary);
+    position: relative;
 }
 
-.achievements-content {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.achievements-grid {
+.ach-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-3xl);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
 }
 
-.achievement-card {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
+/* Card3D base */
+.ach-card {
+    padding: 1.75rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    opacity: 0;
+    cursor: default;
+}
+
+.ach-top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--ach-color, var(--color-amber));
+    opacity: 0.8;
+    transition: opacity var(--transition-base), box-shadow var(--transition-base);
+}
+
+.ach-card:hover .ach-top-bar {
+    opacity: 1;
+    box-shadow: 0 0 14px var(--ach-color, var(--color-amber));
+}
+
+.ach-icon-wrap {
+    width: 52px;
+    height: 52px;
     border-radius: var(--radius-xl);
-    padding: var(--spacing-xl);
-    text-align: center;
-    transition: all var(--transition-base);
-    backdrop-filter: blur(10px);
-}
-
-.achievement-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--color-accent-primary);
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
-}
-
-.achievement-icon {
-    display: inline-flex;
-    margin-bottom: var(--spacing-md);
-    padding: 1rem;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: var(--radius-lg);
-    color: var(--color-accent-primary);
-}
-
-.achievement-title {
-    font-size: 1.2rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-text-primary);
-}
-
-.achievement-description {
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-.certifications-section {
-    margin-top: var(--spacing-3xl);
-}
-
-.certifications-title {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: var(--spacing-2xl);
-    color: var(--color-text-primary);
-}
-
-.certifications-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--spacing-lg);
-}
-
-.certification-card {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-lg);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--spacing-md);
-    transition: all var(--transition-base);
-    text-decoration: none;
-    backdrop-filter: blur(10px);
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
 
-.certification-card:hover {
-    border-color: var(--color-accent-primary);
-    transform: translateX(10px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-}
-
-.cert-content {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    flex: 1;
-}
-
-.cert-icon {
-    color: var(--color-accent-primary);
-    flex-shrink: 0;
-}
-
-.cert-name {
-    font-size: 1.1rem;
+.ach-title {
+    font-size: 1.15rem;
+    font-weight: 700;
     color: var(--color-text-primary);
-    margin-bottom: var(--spacing-xs);
+    margin: 0 0 0.5rem 0;
 }
 
-.cert-issuer {
+.ach-desc {
     font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ── Certifications Section ────────────────────── */
+.cert-section {
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid var(--color-border);
+    padding-top: 3.5rem;
+}
+
+.cert-header {
+    text-align: center;
+    margin-bottom: 2.25rem;
+}
+
+.cert-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin: 0 0 0.35rem 0;
+}
+
+.cert-sub {
+    font-size: 0.92rem;
     color: var(--color-text-muted);
     margin: 0;
 }
 
-.cert-link-icon {
-    color: var(--color-text-muted);
+.cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.cert-link-wrapper {
+    text-decoration: none;
+    display: block;
+}
+
+.cert-card {
+    padding: 1.5rem 1.75rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    opacity: 0;
+}
+
+.cert-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.cert-icon-box {
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    transition: color var(--transition-base);
 }
 
-.certification-card:hover .cert-link-icon {
-    color: var(--color-accent-primary);
+.cert-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 0.2rem 0;
+    transition: color var(--transition-fast);
 }
 
-@media (max-width: 768px) {
-    .achievements-grid {
-        grid-template-columns: 1fr;
-    }
+.cert-link-wrapper:hover .cert-name {
+    color: var(--cert-color, var(--color-amber));
+}
 
-    .certifications-list {
-        grid-template-columns: 1fr;
-    }
+.cert-issuer {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
 
-    .certification-card {
-        padding: var(--spacing-md);
-    }
+.cert-right {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
 
-    .cert-name {
-        font-size: 1rem;
+.ext-icon {
+    transition: transform var(--transition-fast);
+}
+
+.cert-link-wrapper:hover .cert-right {
+    color: var(--cert-color, var(--color-amber));
+}
+
+.cert-link-wrapper:hover .ext-icon {
+    transform: translate(2px, -2px);
+}
+
+@media (max-width: 650px) {
+    .cert-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem !important;
     }
 }

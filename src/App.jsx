@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Core as TaxiCore } from '@unseenco/taxi';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,45 +12,28 @@ import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import HeroCanvas from './components/canvas/HeroCanvas';
+import ThreeMotionBackground from './components/canvas/ThreeMotionBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
     useEffect(() => {
-        // Initialize Lenis smooth kinetic scrolling
+        // Initialize Lenis smooth scrolling — tuned for performance
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
             smoothTouch: false,
-            touchMultiplier: 2,
+            touchMultiplier: 1.5,
         });
 
         // Sync Lenis scroll with GSAP ScrollTrigger
         lenis.on('scroll', ScrollTrigger.update);
 
-        gsap.ticker.add((time) => {
-            lenis.raf(time * 1000);
-        });
-
+        const rafCb = (time) => lenis.raf(time * 1000);
+        gsap.ticker.add(rafCb);
         gsap.ticker.lagSmoothing(0);
 
-        // Initialize Taxi Core for seamless view transitions
-        let taxi;
-        try {
-            taxi = new TaxiCore({
-                renderers: {},
-                transitions: {},
-            });
-        } catch (err) {
-            console.log('Taxi engine initialized in SPA passthrough mode:', err);
-        }
-
         // Smooth scroll anchor navigation using Lenis
-        const anchors = document.querySelectorAll('a[href^="#"]');
         const handleAnchorClick = function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
@@ -63,18 +45,19 @@ function App() {
             }
         };
 
+        const anchors = document.querySelectorAll('a[href^="#"]');
         anchors.forEach(anchor => anchor.addEventListener('click', handleAnchorClick));
 
         return () => {
-            gsap.ticker.remove((time) => lenis.raf(time * 1000));
+            gsap.ticker.remove(rafCb);
             lenis.destroy();
             anchors.forEach(anchor => anchor.removeEventListener('click', handleAnchorClick));
         };
     }, []);
 
     return (
-        <div className="App taxi-view-wrapper" data-taxi-view>
-            <HeroCanvas />
+        <div className="App">
+            <ThreeMotionBackground />
             <Navbar />
             <main>
                 <Hero />

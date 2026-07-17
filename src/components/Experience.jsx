@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { Briefcase, Calendar, MapPin, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Card3D from './Card3D';
 import './Experience.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,178 +14,130 @@ const Experience = () => {
         {
             company: 'Street Surge',
             role: 'Software Development Engineer',
-            period: 'Feb 2025 - Present',
+            period: 'Feb 2025 – Present',
             location: 'Gurgaon, India',
-            color: '#00f2fe',
+            color: 'var(--color-amber)',
             achievements: [
-                'Engineered 3 full-stack web platforms using Spring Boot, React, and Python, connecting 6+ backend microservices through an API gateway to serve 500+ daily active users with high reliability.',
-                'Collaborated with product managers and engineers across 4 cross-functional teams to define technical roadmaps, prioritize feature backlogs, and successfully launch 12+ client-facing software releases on schedule.',
-                'Optimized custom routing algorithms processing 2M+ traffic nodes, reducing transit distances and lowering enterprise fleet fuel consumption by an estimated $15K overall.',
-                'Managed secure multi-tenant cloud infrastructure on AWS (EC2, RDS, Secrets Manager, Cognito) with Role-Based Access Control (RBAC) and Nginx reverse proxies, maintaining 99.5% system availability across 3 production environments.',
-                'Enhanced backend system performance by automating health monitoring pipelines and refactoring PostgreSQL query execution plans, significantly reducing P95 API response latency and lowering on-call support incidents.',
-                'Constructed backend REST APIs using Django to automate 8 manual verification steps, accelerating data processing turnaround times for business operations.',
-                'Introduced engineering best practices including peer code reviews, automated CI/CD pipelines with 90%+ unit test coverage, and comprehensive internal API documentation.'
+                'Engineered 3 full-stack platforms (Spring Boot, React, Python) serving 500+ daily active users.',
+                'Collaborated across 4 cross-functional teams shipping 12+ software releases on schedule.',
+                'Optimized routing algorithms processing 2M+ nodes, reducing fleet fuel costs by ~$15K.',
+                'Managed AWS infrastructure (EC2, RDS, Secrets Manager, Cognito) with 99.5% uptime.',
+                'Reduced P95 API latency by refactoring PostgreSQL query plans.',
+                'Built Django REST APIs automating 8 manual verification steps.',
+                'Established CI/CD with 90%+ unit test coverage.'
             ]
         },
         {
             company: 'CereLabs',
             role: 'Software Engineer Intern',
-            period: 'Jun 2024 - Aug 2024',
+            period: 'Jun 2024 – Aug 2024',
             location: 'Mumbai, India',
-            color: '#a855f7',
+            color: 'var(--color-indigo)',
             achievements: [
-                'Established an automated testing framework using Python, GPT-4, and OLLAMA to evaluate generative AI models across 1,000+ complex prompt validation cases.',
-                'Co-developed scalable vector similarity search modules with senior engineers, implementing algorithm optimizations to reduce embedding inference latency across 50K+ document samples.',
-                'Authored comprehensive technical design documentation and executed 200+ validation test cases to ensure reliable software deployments met strict production SLAs.',
-                'Refined backend data ingestion pipelines handling 10GB+ of unstructured data, improving downstream LLM response accuracy and eliminating recurrent pre-processing failures.'
+                'Built GenAI testing framework (Python + GPT-4 + OLLAMA) across 1,000+ complex prompt cases.',
+                'Co-developed vector similarity search cutting embedding latency across 50K+ documents.',
+                'Authored design docs and ran 200+ test cases to meet strict production SLAs.',
+                'Refined data ingestion pipelines handling 10GB+ unstructured data.'
             ]
         },
         {
             company: 'OziBook',
             role: 'Data Analyst Intern',
-            period: 'Jan 2024 - Mar 2024',
+            period: 'Jan 2024 – Mar 2024',
             location: 'Bengaluru, India',
-            color: '#4facfe',
+            color: 'var(--color-violet)',
             achievements: [
-                'Automated web scraping and data ingestion workflows using Python and BeautifulSoup, saving 15 hours of manual data collection weekly.',
-                'Created 5 ETL data transformation pipelines to clean and structure 100K+ records into relational databases, enabling faster and more accurate strategic business analytics.',
-                'Implemented monitoring and data validation scripts across 3 database sources, ensuring robust pipeline reliability and accelerating strategic reporting cycles.'
+                'Automated web scraping with Python & BeautifulSoup, saving 15 hours/week.',
+                'Built 5 ETL pipelines cleaning 100K+ records for strategic analytics.',
+                'Implemented monitoring scripts across 3 database sources.'
             ]
         }
     ];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animate laser beam drawing down the vertical spine
-            gsap.fromTo(
-                '.timeline-laser-beam',
-                { height: '0%' },
+            // Laser beam draws downward as user scrolls
+            gsap.fromTo('.timeline-beam',
+                { scaleY: 0 },
                 {
-                    height: '100%',
+                    scaleY: 1,
                     ease: 'none',
+                    transformOrigin: 'top center',
                     scrollTrigger: {
-                        trigger: '.timeline',
-                        start: 'top 75%',
-                        end: 'bottom 60%',
-                        scrub: 1,
+                        trigger: '.exp-timeline',
+                        start: 'top 72%',
+                        end:   'bottom 58%',
+                        scrub: 1.8,
                     }
                 }
             );
 
-            const items = gsap.utils.toArray('.timeline-item');
-            items.forEach((item, index) => {
-                gsap.fromTo(
-                    item,
-                    { opacity: 0, x: -80, scale: 0.92, rotateY: -10 },
-                    {
-                        opacity: 1,
-                        x: 0,
-                        scale: 1,
-                        rotateY: 0,
-                        duration: 1,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top 85%',
-                            end: 'top 60%',
-                            scrub: 1,
-                        }
-                    }
-                );
-            });
+            // Cards stagger in
+            gsap.fromTo('.exp-item',
+                { opacity: 0, x: -45 },
+                {
+                    opacity: 1, x: 0, duration: 0.75, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.exp-timeline', start: 'top 78%' }
+                }
+            );
         }, sectionRef);
-
         return () => ctx.revert();
     }, []);
-
-    // 3D Perspective Card Tilt calculation
-    const handleCardTilt = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-
-        gsap.to(card, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            scale: 1.02,
-            duration: 0.4,
-            ease: 'power2.out',
-            transformPerspective: 1000
-        });
-    };
-
-    const handleCardReset = (e) => {
-        gsap.to(e.currentTarget, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.4)'
-        });
-    };
 
     return (
         <section id="experience" className="section experience" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Production Experience Timeline</h2>
-                    <div className="title-underline">
-                        <span className="underline-dot"></span>
-                    </div>
+                    <h2 className="section-title">Work Experience</h2>
+                    <div className="title-underline"><span className="underline-dot" /></div>
                     <p className="section-description">
-                        My professional engineering track record building scalable microservices, AI validation engines, and high-volume ETL pipelines
+                        Building scalable systems, AI validation engines, and high-volume data pipelines
                     </p>
                 </div>
 
-                <div className="timeline">
-                    {/* Laser beam track line */}
-                    <div className="timeline-laser-beam"></div>
+                <div className="exp-timeline">
+                    {/* Vertical track */}
+                    <div className="timeline-track">
+                        <div className="timeline-beam" />
+                    </div>
 
-                    {experiences.map((exp, index) => (
-                        <div key={index} className="timeline-item" style={{ '--exp-color': exp.color }}>
-                            <div className="timeline-marker">
-                                <div className="marker-inner-dot"></div>
-                                <div className="marker-pulse"></div>
+                    {experiences.map((exp, i) => (
+                        <div key={i} className="exp-item" style={{ '--exp-color': exp.color }}>
+                            {/* Node */}
+                            <div className="exp-node">
+                                <div className="node-core" />
+                                <div className="node-ring" />
                             </div>
-                            <div 
-                                className="timeline-content holographic-card"
-                                onMouseMove={handleCardTilt}
-                                onMouseLeave={handleCardReset}
-                            >
-                                <div className="experience-card-bg" style={{ backgroundImage: "url('/education-bg.png')" }}></div>
-                                <div className="experience-header">
-                                    <div className="experience-title-group">
-                                        <h3 className="company-name">{exp.company}</h3>
-                                        <p className="role-title">{exp.role}</p>
+
+                            {/* Card */}
+                            <Card3D className="exp-card" maxTilt={6}>
+                                <div className="exp-top-bar" />
+                                <div className="exp-header">
+                                    <div>
+                                        <h3 className="exp-company">{exp.company}</h3>
+                                        <p className="exp-role">{exp.role}</p>
                                     </div>
-                                    <div className="experience-meta">
-                                        <div className="meta-item">
-                                            <Calendar size={16} color={exp.color} />
+                                    <div className="exp-meta">
+                                        <div className="meta-row">
+                                            <Calendar size={12} style={{ color: exp.color }} />
                                             <span>{exp.period}</span>
                                         </div>
-                                        <div className="meta-item">
-                                            <MapPin size={16} color={exp.color} />
+                                        <div className="meta-row">
+                                            <MapPin size={12} style={{ color: exp.color }} />
                                             <span>{exp.location}</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                {exp.achievements && (
-                                    <ul className="achievements-list">
-                                        {exp.achievements.map((item, idx) => (
-                                            <li key={idx} className="achievement-item">
-                                                <CheckCircle2 size={16} className="achievement-bullet" color={exp.color} />
-                                                <span>{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
+                                <ul className="exp-achievements">
+                                    {exp.achievements.map((a, ai) => (
+                                        <li key={ai} className="exp-ach">
+                                            <CheckCircle2 size={13} style={{ color: exp.color }} className="ach-icon" />
+                                            <span>{a}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </Card3D>
                         </div>
                     ))}
                 </div>
