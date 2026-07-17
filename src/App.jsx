@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Core as TaxiCore } from '@unseenco/taxi';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -12,6 +13,7 @@ import Projects from './components/Projects';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import HeroCanvas from './components/canvas/HeroCanvas';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +39,17 @@ function App() {
 
         gsap.ticker.lagSmoothing(0);
 
+        // Initialize Taxi Core for seamless view transitions
+        let taxi;
+        try {
+            taxi = new TaxiCore({
+                renderers: {},
+                transitions: {},
+            });
+        } catch (err) {
+            console.log('Taxi engine initialized in SPA passthrough mode:', err);
+        }
+
         // Smooth scroll anchor navigation using Lenis
         const anchors = document.querySelectorAll('a[href^="#"]');
         const handleAnchorClick = function (e) {
@@ -60,7 +73,8 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
+        <div className="App taxi-view-wrapper" data-taxi-view>
+            <HeroCanvas />
             <Navbar />
             <main>
                 <Hero />

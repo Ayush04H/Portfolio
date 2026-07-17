@@ -16,7 +16,18 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--gradient-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.timeline-laser-beam {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #00f2fe, #a855f7, #4facfe);
+    box-shadow: 0 0 12px #00f2fe, 0 0 25px #a855f7;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .timeline-item {
@@ -31,14 +42,42 @@
 .timeline-marker {
     position: absolute;
     left: -2.5rem;
-    top: 0.5rem;
-    width: 16px;
-    height: 16px;
-    background: var(--gradient-primary);
+    top: 0.8rem;
+    width: 18px;
+    height: 18px;
+    background: var(--exp-color, var(--color-accent-primary));
     border-radius: 50%;
     border: 3px solid var(--color-bg-secondary);
     z-index: 2;
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 15px var(--exp-color, var(--color-accent-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marker-inner-dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+}
+
+.marker-pulse {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--exp-color, var(--color-accent-primary));
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
 }
 
 .timeline-content {
@@ -54,9 +93,9 @@
 }
 
 .timeline-content:hover {
-    border-color: var(--color-accent-primary);
+    border-color: var(--exp-color, var(--color-accent-primary));
     transform: translateX(10px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 10px 35px rgba(0, 242, 254, 0.15);
 }
 
 .experience-card-bg {
@@ -130,22 +169,21 @@
 
 .achievement-item {
     position: relative;
-    padding-left: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
     margin-bottom: var(--spacing-md);
     line-height: 1.7;
     color: var(--color-text-secondary);
 }
 
-.achievement-item:last-child {
-    margin-bottom: 0;
+.achievement-bullet {
+    flex-shrink: 0;
+    margin-top: 0.3rem;
 }
 
-.achievement-item::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--color-accent-primary);
-    font-size: 1.2rem;
+.achievement-item:last-child {
+    margin-bottom: 0;
 }
 
 @media (max-width: 768px) {

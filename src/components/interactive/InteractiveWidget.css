@@ -1,0 +1,150 @@
+.interactive-widget-wrapper {
+    background: rgba(17, 24, 39, 0.75);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-xl);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-xl);
+    margin: var(--spacing-2xl) 0;
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.widget-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.05em;
+}
+
+.status-dot-pulse {
+    width: 10px;
+    height: 10px;
+    background: var(--color-accent-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-accent-primary);
+    animation: dotPulse 1.5s infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.widget-power-level {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-family: monospace;
+}
+
+.widget-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .widget-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.widget-hud-display {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 9, 17, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+.hud-canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.hud-overlay-info {
+    text-align: center;
+    margin-top: var(--spacing-sm);
+}
+
+.hud-overlay-info h4 {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.hud-overlay-info p {
+    color: var(--color-accent-secondary);
+    font-size: 0.75rem;
+    font-family: monospace;
+    margin-bottom: 0;
+}
+
+.widget-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.widget-control-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    color: var(--color-text-primary);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.widget-control-btn:hover {
+    background: rgba(0, 242, 254, 0.08);
+    border-color: var(--color-accent-primary);
+    transform: translateX(6px);
+}
+
+.widget-control-btn.active {
+    background: rgba(0, 242, 254, 0.12);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.widget-control-btn svg {
+    color: var(--color-accent-primary);
+    flex-shrink: 0;
+}
+
+.widget-control-btn h5 {
+    margin-bottom: 0.15rem;
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+}
+
+.widget-control-btn span {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}

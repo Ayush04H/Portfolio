@@ -823,3 +823,66 @@ a:hover {
 .hover-glow:hover {
   filter: drop-shadow(0 0 15px currentColor);
 }
+
+/* Holographic & 3D Foil Sheen Effects */
+.holographic-card {
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-smooth);
+}
+
+.holographic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(0, 242, 254, 0.1) 40%,
+    rgba(168, 85, 247, 0.15) 60%,
+    transparent 80%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.holographic-card:hover::before {
+  left: 100%;
+}
+
+.holographic-card:hover {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.25), inset 0 0 15px rgba(0, 242, 254, 0.1);
+}
+
+/* Taxi.js Page / View Transition Wrappers */
+.taxi-view-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.taxi-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-primary);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.taxi-transition-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}

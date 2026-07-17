@@ -208,3 +208,155 @@
         font-size: 1rem;
     }
 }
+
+.project-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.arch-inspect-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(0, 242, 254, 0.1);
+    border: 1px solid var(--color-accent-primary);
+    color: var(--color-accent-primary);
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.arch-inspect-btn:hover {
+    background: var(--color-accent-primary);
+    color: #0b0f19;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+    transform: scale(1.05);
+}
+
+/* Architecture Modal Styles */
+.arch-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(6, 9, 17, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.arch-modal-card {
+    background: var(--color-bg-elevated);
+    border: 2px solid var(--color-accent-primary);
+    border-radius: var(--radius-2xl);
+    max-width: 700px;
+    width: 100%;
+    padding: var(--spacing-2xl);
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 242, 254, 0.25);
+    color: var(--color-text-primary);
+}
+
+.arch-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--color-text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.arch-modal-close:hover {
+    background: rgba(255, 94, 108, 0.2);
+    color: #ff5e6c;
+    transform: rotate(90deg);
+}
+
+.arch-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-lg);
+}
+
+.arch-modal-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.arch-modal-subtitle {
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.arch-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.arch-metric-box {
+    background: rgba(17, 24, 39, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.arch-metric-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.arch-metric-val {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.arch-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-lg);
+}
+
+.arch-footer-note {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}

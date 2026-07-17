@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, Sparkles, CheckCircle2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Experience.css';
@@ -15,6 +15,7 @@ const Experience = () => {
             role: 'Software Development Engineer',
             period: 'Feb 2025 - Present',
             location: 'Gurgaon, India',
+            color: '#00f2fe',
             achievements: [
                 'Engineered 3 full-stack web platforms using Spring Boot, React, and Python, connecting 6+ backend microservices through an API gateway to serve 500+ daily active users with high reliability.',
                 'Collaborated with product managers and engineers across 4 cross-functional teams to define technical roadmaps, prioritize feature backlogs, and successfully launch 12+ client-facing software releases on schedule.',
@@ -30,6 +31,7 @@ const Experience = () => {
             role: 'Software Engineer Intern',
             period: 'Jun 2024 - Aug 2024',
             location: 'Mumbai, India',
+            color: '#a855f7',
             achievements: [
                 'Established an automated testing framework using Python, GPT-4, and OLLAMA to evaluate generative AI models across 1,000+ complex prompt validation cases.',
                 'Co-developed scalable vector similarity search modules with senior engineers, implementing algorithm optimizations to reduce embedding inference latency across 50K+ document samples.',
@@ -42,6 +44,7 @@ const Experience = () => {
             role: 'Data Analyst Intern',
             period: 'Jan 2024 - Mar 2024',
             location: 'Bengaluru, India',
+            color: '#4facfe',
             achievements: [
                 'Automated web scraping and data ingestion workflows using Python and BeautifulSoup, saving 15 hours of manual data collection weekly.',
                 'Created 5 ETL data transformation pipelines to clean and structure 100K+ records into relational databases, enabling faster and more accurate strategic business analytics.',
@@ -52,22 +55,32 @@ const Experience = () => {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animate timeline vertical line drawing down with scroll
+            // Animate laser beam drawing down the vertical spine
             gsap.fromTo(
-                '.timeline',
-                { '--progress': 0 },
-                {}
+                '.timeline-laser-beam',
+                { height: '0%' },
+                {
+                    height: '100%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '.timeline',
+                        start: 'top 75%',
+                        end: 'bottom 60%',
+                        scrub: 1,
+                    }
+                }
             );
 
             const items = gsap.utils.toArray('.timeline-item');
             items.forEach((item, index) => {
                 gsap.fromTo(
                     item,
-                    { opacity: 0, x: -80, scale: 0.92 },
+                    { opacity: 0, x: -80, scale: 0.92, rotateY: -10 },
                     {
                         opacity: 1,
                         x: 0,
                         scale: 1,
+                        rotateY: 0,
                         duration: 1,
                         ease: 'power3.out',
                         scrollTrigger: {
@@ -84,22 +97,65 @@ const Experience = () => {
         return () => ctx.revert();
     }, []);
 
+    // 3D Perspective Card Tilt calculation
+    const handleCardTilt = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        gsap.to(card, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            scale: 1.02,
+            duration: 0.4,
+            ease: 'power2.out',
+            transformPerspective: 1000
+        });
+    };
+
+    const handleCardReset = (e) => {
+        gsap.to(e.currentTarget, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: 'elastic.out(1, 0.4)'
+        });
+    };
+
     return (
         <section id="experience" className="section experience" ref={sectionRef}>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Work Experience</h2>
-                    <div className="title-underline"></div>
+                    <h2 className="section-title">Production Experience Timeline</h2>
+                    <div className="title-underline">
+                        <span className="underline-dot"></span>
+                    </div>
                     <p className="section-description">
-                        My professional engineering track record delivering scalable systems and measurable business impact
+                        My professional engineering track record building scalable microservices, AI validation engines, and high-volume ETL pipelines
                     </p>
                 </div>
 
                 <div className="timeline">
+                    {/* Laser beam track line */}
+                    <div className="timeline-laser-beam"></div>
+
                     {experiences.map((exp, index) => (
-                        <div key={index} className="timeline-item">
-                            <div className="timeline-marker"></div>
-                            <div className="timeline-content">
+                        <div key={index} className="timeline-item" style={{ '--exp-color': exp.color }}>
+                            <div className="timeline-marker">
+                                <div className="marker-inner-dot"></div>
+                                <div className="marker-pulse"></div>
+                            </div>
+                            <div 
+                                className="timeline-content holographic-card"
+                                onMouseMove={handleCardTilt}
+                                onMouseLeave={handleCardReset}
+                            >
                                 <div className="experience-card-bg" style={{ backgroundImage: "url('/education-bg.png')" }}></div>
                                 <div className="experience-header">
                                     <div className="experience-title-group">
@@ -108,11 +164,11 @@ const Experience = () => {
                                     </div>
                                     <div className="experience-meta">
                                         <div className="meta-item">
-                                            <Calendar size={16} />
+                                            <Calendar size={16} color={exp.color} />
                                             <span>{exp.period}</span>
                                         </div>
                                         <div className="meta-item">
-                                            <MapPin size={16} />
+                                            <MapPin size={16} color={exp.color} />
                                             <span>{exp.location}</span>
                                         </div>
                                     </div>
@@ -122,7 +178,8 @@ const Experience = () => {
                                     <ul className="achievements-list">
                                         {exp.achievements.map((item, idx) => (
                                             <li key={idx} className="achievement-item">
-                                                {item}
+                                                <CheckCircle2 size={16} className="achievement-bullet" color={exp.color} />
+                                                <span>{item}</span>
                                             </li>
                                         ))}
                                     </ul>
