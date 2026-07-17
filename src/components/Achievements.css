@@ -186,3 +186,15 @@
         padding: 1.25rem !important;
     }
 }
+
+@media (max-width: 900px) {
+    .certifications-3d-canvas {
+        width: 280px !important;
+        height: 280px !important;
+        right: -12% !important;
+        opacity: 0.45;
+    }
+}
+@media (max-width: 550px) {
+    .certifications-3d-canvas { display: none; }
+}

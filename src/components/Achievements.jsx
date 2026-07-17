@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
 import Achievements3DCanvas from './canvas/Achievements3DCanvas';
+import Certifications3DCanvas from './canvas/Certifications3DCanvas';
 import './Achievements.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,28 +14,22 @@ const Achievements = () => {
 
     const achievements = [
         {
-            icon: <Trophy size={28} />,
-            title: '1st Runner-Up (AAROHAN)',
-            description: 'Inter-College Web Design Competition among 50+ competing tech teams across Northern India.',
+            icon: <Code size={26} />,
+            title: 'Top 1.1% Global Rank',
+            description: 'Achieved top ranking out of 300,000+ active competitive programmers on LeetCode with 700+ solved problems across dynamic programming, graphs, and system design.',
             color: 'var(--color-amber)'
         },
         {
-            icon: <Award size={28} />,
-            title: 'Top 1.1% Global Rank',
-            description: 'LeetCode competitive programming — solved 700+ complex algorithmic & data structure challenges.',
+            icon: <Trophy size={26} />,
+            title: '1st Runner-Up (AAROHAN)',
+            description: 'National Level Hackathon winners among 500+ teams. Designed and prototyped an AI-driven real-time distributed application.',
             color: 'var(--color-indigo)'
         },
         {
-            icon: <Users size={28} />,
-            title: 'E-Cell Tech Head',
-            description: 'Led a 20+ member technical team building dynamic portals that boosted event participation by 45%.',
+            icon: <Users size={26} />,
+            title: 'Technical Lead (GFG Chapter)',
+            description: 'Led technical workshops on Data Structures, Algorithms, and Cloud Systems for 400+ engineering students. Organized multiple coding contests.',
             color: 'var(--color-violet)'
-        },
-        {
-            icon: <Code size={28} />,
-            title: 'Open Source Contributor',
-            description: 'Contributed performance fixes and documentation enhancements to popular Python & JavaScript libraries.',
-            color: 'var(--color-amber)'
         }
     ];
 
@@ -42,20 +37,20 @@ const Achievements = () => {
         {
             name: 'AWS Certified Cloud Practitioner',
             issuer: 'Amazon Web Services (AWS) · May 2024',
-            link: 'https://www.credly.com/org/amazon-web-services/',
+            link: 'https://aws.amazon.com/certification/',
             color: 'var(--color-amber)'
         },
         {
             name: 'Deep Learning & Neural Networks Specialization',
             issuer: 'DeepLearning.AI / Coursera · Nov 2024',
             link: 'https://www.coursera.org/specializations/deep-learning',
-            color: 'var(--color-violet)'
+            color: 'var(--color-indigo)'
         },
         {
             name: 'MLOps Bootcamp: Mastering AI Operations',
             issuer: 'Udemy · Dec 2024',
-            link: 'https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aiops/',
-            color: 'var(--color-indigo)'
+            link: 'https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aions/',
+            color: 'var(--color-emerald)'
         }
     ];
 
@@ -64,8 +59,8 @@ const Achievements = () => {
             gsap.fromTo('.ach-card',
                 { opacity: 0, y: 50, rotationX: 25, rotationY: -10, transformPerspective: 1000 },
                 {
-                    opacity: 1, y: 0, rotationX: 0, rotationY: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-                    scrollTrigger: { trigger: '.ach-grid', start: 'top 85%' }
+                    opacity: 1, y: 0, rotationX: 0, rotationY: 0, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
                 }
             );
             gsap.fromTo('.cert-card',
@@ -110,7 +105,8 @@ const Achievements = () => {
                     ))}
                 </div>
 
-                <div className="cert-section">
+                <div className="cert-section" style={{ position: 'relative' }}>
+                    <Certifications3DCanvas />
                     <div className="cert-header">
                         <h3 className="cert-title">Professional Certifications</h3>
                         <p className="cert-sub">Verified credentials across Data Systems & AI Engineering</p>
