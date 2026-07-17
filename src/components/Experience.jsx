@@ -3,6 +3,7 @@ import { Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
+import Experience3DCanvas from './canvas/Experience3DCanvas';
 import './Experience.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -65,19 +66,19 @@ const Experience = () => {
                     transformOrigin: 'top center',
                     scrollTrigger: {
                         trigger: '.exp-timeline',
-                        start: 'top 72%',
-                        end:   'bottom 58%',
-                        scrub: 1.8,
+                        start: 'top 75%',
+                        end:   'bottom 60%',
+                        scrub: 1.5,
                     }
                 }
             );
 
-            // Cards stagger in
+            // Animate .exp-item and .exp-card together so cards are 100% visible and unfold with 3D perspective
             gsap.fromTo('.exp-item',
-                { opacity: 0, x: -45 },
+                { opacity: 0, x: 50, rotationX: 20, rotationY: -15, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.75, stagger: 0.15, ease: 'power3.out',
-                    scrollTrigger: { trigger: '.exp-timeline', start: 'top 78%' }
+                    opacity: 1, x: 0, rotationX: 0, rotationY: 0, duration: 0.85, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.exp-timeline', start: 'top 82%' }
                 }
             );
         }, sectionRef);
@@ -86,7 +87,10 @@ const Experience = () => {
 
     return (
         <section id="experience" className="section experience" ref={sectionRef}>
-            <div className="container">
+            {/* Dedicated 3D Visual for Work Experience */}
+            <Experience3DCanvas />
+
+            <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                 <div className="section-header">
                     <h2 className="section-title">Work Experience</h2>
                     <div className="title-underline"><span className="underline-dot" /></div>
@@ -119,11 +123,11 @@ const Experience = () => {
                                     </div>
                                     <div className="exp-meta">
                                         <div className="meta-row">
-                                            <Calendar size={12} style={{ color: exp.color }} />
+                                            <Calendar size={13} style={{ color: exp.color }} />
                                             <span>{exp.period}</span>
                                         </div>
                                         <div className="meta-row">
-                                            <MapPin size={12} style={{ color: exp.color }} />
+                                            <MapPin size={13} style={{ color: exp.color }} />
                                             <span>{exp.location}</span>
                                         </div>
                                     </div>
@@ -132,7 +136,7 @@ const Experience = () => {
                                 <ul className="exp-achievements">
                                     {exp.achievements.map((a, ai) => (
                                         <li key={ai} className="exp-ach">
-                                            <CheckCircle2 size={13} style={{ color: exp.color }} className="ach-icon" />
+                                            <CheckCircle2 size={14} style={{ color: exp.color }} className="ach-icon" />
                                             <span>{a}</span>
                                         </li>
                                     ))}

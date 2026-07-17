@@ -3,6 +3,7 @@ import { Mail, MapPin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-re
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
+import Contact3DCanvas from './canvas/Contact3DCanvas';
 import './Contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -23,16 +24,16 @@ const Contact = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo('.contact-info-panel',
-                { opacity: 0, x: -45 },
+                { opacity: 0, x: -60, rotationY: -25, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    opacity: 1, x: 0, rotationY: 0, duration: 0.9, ease: 'power3.out',
                     scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
                 }
             );
             gsap.fromTo('.contact-form-panel',
-                { opacity: 0, x: 45 },
+                { opacity: 0, x: 60, rotationY: 25, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    opacity: 1, x: 0, rotationY: 0, duration: 0.9, ease: 'power3.out',
                     scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
                 }
             );
@@ -45,11 +46,15 @@ const Contact = () => {
         if (!formData.name.trim()) newErrors.name = 'Name is required';
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is invalid';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = 'Please enter a valid email address';
         }
         if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
-        if (!formData.message.trim()) newErrors.message = 'Message is required';
+        if (!formData.message.trim()) {
+            newErrors.message = 'Message is required';
+        } else if (formData.message.trim().length < 10) {
+            newErrors.message = 'Message must be at least 10 characters';
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -129,7 +134,10 @@ const Contact = () => {
 
     return (
         <section id="contact" className="section contact" ref={sectionRef}>
-            <div className="container">
+            {/* Dedicated 3D Cyber Globe & Communication Sphere */}
+            <Contact3DCanvas />
+
+            <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                 <div className="section-header">
                     <h2 className="section-title">Get In Touch</h2>
                     <div className="title-underline"><span className="underline-dot" /></div>

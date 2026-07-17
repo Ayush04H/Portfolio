@@ -3,6 +3,7 @@ import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ParticleCanvas from './canvas/ParticleCanvas';
+import Hero3DCanvas from './canvas/Hero3DCanvas';
 import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -84,6 +85,9 @@ const Hero = () => {
         <section id="home" className="hero" ref={heroRef}>
             {/* Canvas2D particles — zero deps, zero version conflicts */}
             <ParticleCanvas />
+
+            {/* High-Impact Interactive 3D Cyber Sculpture (Click / Orbit) */}
+            <Hero3DCanvas />
 
             {/* Ambient glows */}
             <div className="hero-glow hero-glow-amber" aria-hidden="true" />

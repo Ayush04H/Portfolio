@@ -19,23 +19,23 @@ const About = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo('.about-image-side',
-                { opacity: 0, x: -50 },
+                { opacity: 0, x: -60, rotationY: -25, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    opacity: 1, x: 0, rotationY: 0, duration: 0.9, ease: 'power3.out',
                     scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' }
                 }
             );
             gsap.fromTo('.about-text-side',
-                { opacity: 0, x: 50 },
+                { opacity: 0, x: 60, rotationY: 25, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.85, ease: 'power3.out',
+                    opacity: 1, x: 0, rotationY: 0, duration: 0.9, ease: 'power3.out',
                     scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' }
                 }
             );
             gsap.fromTo('.about-stat',
-                { opacity: 0, y: 30 },
+                { opacity: 0, y: 40, rotationX: 25, transformPerspective: 800 },
                 {
-                    opacity: 1, y: 0, duration: 0.65, stagger: 0.1, ease: 'power3.out',
+                    opacity: 1, y: 0, rotationX: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
                     scrollTrigger: { trigger: '.about-stats-row', start: 'top 88%' }
                 }
             );

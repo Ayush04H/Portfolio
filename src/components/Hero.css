@@ -310,4 +310,18 @@
     .hero-visual   { display: none; }
     .hero-cta      { flex-direction: column; }
     .hero-title    { font-size: 2.3rem; }
+    .hero-3d-canvas {
+        width: 380px !important;
+        height: 380px !important;
+        right: -20% !important;
+        opacity: 0.6;
+    }
+}
+
+/* ── Interactive 3D Canvas Styling ─────────── */
+.hero-3d-canvas {
+    transition: transform 0.3s ease;
+}
+.hero-3d-canvas:hover {
+    transform: translateY(-50%) scale(1.03) !important;
 }

@@ -3,6 +3,7 @@ import { Trophy, Award, Users, Code, ExternalLink } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
+import Achievements3DCanvas from './canvas/Achievements3DCanvas';
 import './Achievements.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,41 +13,47 @@ const Achievements = () => {
 
     const achievements = [
         {
-            icon: <Users size={26} />,
-            title: 'ITSA Leadership',
-            description: 'EPST Head & Active Member of Information Technology Students\' Association',
+            icon: <Trophy size={28} />,
+            title: '1st Runner-Up (AAROHAN)',
+            description: 'Inter-College Web Design Competition among 50+ competing tech teams across Northern India.',
             color: 'var(--color-amber)'
         },
         {
-            icon: <Code size={26} />,
-            title: 'Coding Competitions',
-            description: 'Finalist in ACES Coding Challenge, ranking among top competitors from 250+ students',
+            icon: <Award size={28} />,
+            title: 'Top 1.1% Global Rank',
+            description: 'LeetCode competitive programming — solved 700+ complex algorithmic & data structure challenges.',
             color: 'var(--color-indigo)'
         },
         {
-            icon: <Trophy size={26} />,
-            title: 'Sports Excellence',
-            description: 'Won 3 gold medals, 1 silver, and 2 personal awards in 10+ volleyball tournaments',
+            icon: <Users size={28} />,
+            title: 'E-Cell Tech Head',
+            description: 'Led a 20+ member technical team building dynamic portals that boosted event participation by 45%.',
             color: 'var(--color-violet)'
         },
         {
-            icon: <Award size={26} />,
-            title: 'Hackathon Success',
-            description: 'Cleared Group Stages of AICTE Computer Science Hackathon',
-            color: 'var(--color-emerald)'
+            icon: <Code size={28} />,
+            title: 'Open Source Contributor',
+            description: 'Contributed performance fixes and documentation enhancements to popular Python & JavaScript libraries.',
+            color: 'var(--color-amber)'
         }
     ];
 
     const certifications = [
         {
-            name: 'Database Structures and Management with MySQL',
-            issuer: 'Coursera · Professional Certification',
-            link: 'https://coursera.org/share/982cbbdd0a3455f86ccc34eb4f06559b',
+            name: 'AWS Certified Cloud Practitioner',
+            issuer: 'Amazon Web Services (AWS) · May 2024',
+            link: 'https://www.credly.com/org/amazon-web-services/',
             color: 'var(--color-amber)'
         },
         {
-            name: 'MLOps Bootcamp - Mastering AI Operations',
-            issuer: 'Udemy · AI & Systems Certification',
+            name: 'Deep Learning & Neural Networks Specialization',
+            issuer: 'DeepLearning.AI / Coursera · Nov 2024',
+            link: 'https://www.coursera.org/specializations/deep-learning',
+            color: 'var(--color-violet)'
+        },
+        {
+            name: 'MLOps Bootcamp: Mastering AI Operations',
+            issuer: 'Udemy · Dec 2024',
             link: 'https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aiops/',
             color: 'var(--color-indigo)'
         }
@@ -55,16 +62,16 @@ const Achievements = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo('.ach-card',
-                { opacity: 0, y: 40 },
+                { opacity: 0, y: 50, rotationX: 25, rotationY: -10, transformPerspective: 1000 },
                 {
-                    opacity: 1, y: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out',
+                    opacity: 1, y: 0, rotationX: 0, rotationY: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
                     scrollTrigger: { trigger: '.ach-grid', start: 'top 85%' }
                 }
             );
             gsap.fromTo('.cert-card',
-                { opacity: 0, x: -35 },
+                { opacity: 0, x: -50, rotationY: -20, transformPerspective: 1000 },
                 {
-                    opacity: 1, x: 0, duration: 0.75, stagger: 0.15, ease: 'power3.out',
+                    opacity: 1, x: 0, rotationY: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
                     scrollTrigger: { trigger: '.cert-list', start: 'top 88%' }
                 }
             );
@@ -74,7 +81,9 @@ const Achievements = () => {
 
     return (
         <section id="achievements" className="section achievements" ref={sectionRef}>
-            <div className="container">
+            <Achievements3DCanvas />
+
+            <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                 <div className="section-header">
                     <h2 className="section-title">Achievements & Certifications</h2>
                     <div className="title-underline"><span className="underline-dot" /></div>

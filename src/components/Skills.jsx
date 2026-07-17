@@ -39,9 +39,9 @@ const Skills = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo('.skill-card',
-                { opacity: 0, y: 40 },
+                { opacity: 0, y: 55, rotationX: 25, rotationY: 10, scale: 0.9, transformPerspective: 1000 },
                 {
-                    opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+                    opacity: 1, y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 0.8, stagger: 0.12, ease: 'power3.out',
                     scrollTrigger: { trigger: '.skills-grid', start: 'top 85%' }
                 }
             );

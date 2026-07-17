@@ -20,9 +20,9 @@ const Education = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.fromTo('.edu-card-wrap',
-                { opacity: 0, y: 50, scale: 0.96 },
+                { opacity: 0, y: 60, rotationX: 25, rotationY: -10, scale: 0.92, transformPerspective: 1000 },
                 {
-                    opacity: 1, y: 0, scale: 1, duration: 0.85, ease: 'power3.out',
+                    opacity: 1, y: 0, rotationX: 0, rotationY: 0, scale: 1, duration: 0.9, ease: 'power3.out',
                     scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' }
                 }
             );

@@ -1,6 +1,19 @@
 .achievements {
     background: var(--color-bg-primary);
     position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 900px) {
+    .achievements-3d-canvas {
+        width: 300px !important;
+        height: 300px !important;
+        right: -10% !important;
+        opacity: 0.5;
+    }
+}
+@media (max-width: 550px) {
+    .achievements-3d-canvas { display: none; }
 }
 
 .ach-grid {
