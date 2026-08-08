@@ -15,41 +15,41 @@ const Achievements = () => {
     const achievements = [
         {
             icon: <Code size={26} />,
-            title: 'Top 1.1% Global Rank',
-            description: 'Achieved top ranking out of 300,000+ active competitive programmers on LeetCode with 700+ solved problems across dynamic programming, graphs, and system design.',
+            title: 'ACES Coding Challenge Finalist',
+            description: 'Finalist in the ACES Coding Challenge, ranking among the top competitors out of over 250 students.',
             color: 'var(--color-amber)'
         },
         {
-            icon: <Trophy size={26} />,
-            title: '1st Runner-Up (AAROHAN)',
-            description: 'National Level Hackathon winners among 500+ teams. Designed and prototyped an AI-driven real-time distributed application.',
+            icon: <Code size={26} />,
+            title: 'AICTE Hackathon',
+            description: 'Cleared Group Stages of the AICTE Computer Science Hackathon.',
             color: 'var(--color-indigo)'
         },
         {
             icon: <Users size={26} />,
-            title: 'Technical Lead (GFG Chapter)',
-            description: 'Led technical workshops on Data Structures, Algorithms, and Cloud Systems for 400+ engineering students. Organized multiple coding contests.',
+            title: 'EPST Head & Active Member',
+            description: 'EPST Head and Active Member at ITSA (Information Technology Students\' Association).',
             color: 'var(--color-violet)'
+        },
+        {
+            icon: <Trophy size={26} />,
+            title: 'Volleyball Tournaments',
+            description: 'Competed in over 10 volleyball tournaments, winning 3 gold medals, 1 silver, and 2 personal awards.',
+            color: 'var(--color-emerald)'
         }
     ];
 
     const certifications = [
         {
-            name: 'AWS Certified Cloud Practitioner',
-            issuer: 'Amazon Web Services (AWS) · May 2024',
-            link: 'https://aws.amazon.com/certification/',
+            name: 'Database Structures and Management with MySQL',
+            issuer: 'Coursera',
+            link: 'https://coursera.org/share/982cbbdd0a3455f86ccc34eb4f06559b',
             color: 'var(--color-amber)'
         },
         {
-            name: 'Deep Learning & Neural Networks Specialization',
-            issuer: 'DeepLearning.AI / Coursera · Nov 2024',
-            link: 'https://www.coursera.org/specializations/deep-learning',
-            color: 'var(--color-indigo)'
-        },
-        {
             name: 'MLOps Bootcamp: Mastering AI Operations',
-            issuer: 'Udemy · Dec 2024',
-            link: 'https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aions/',
+            issuer: 'Udemy',
+            link: 'https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aiops/',
             color: 'var(--color-emerald)'
         }
     ];
