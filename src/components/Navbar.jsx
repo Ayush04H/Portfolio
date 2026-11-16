@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Code2 } from 'lucide-react';
+import { trackClick, trackSectionView } from '../utils/analytics';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -39,8 +40,12 @@ const Navbar = () => {
         { name: 'Contact', href: '#contact' },
     ];
 
-    const handleLinkClick = () => {
+    const handleLinkClick = (link) => {
         setIsMobileMenuOpen(false);
+        if (link) {
+            trackClick(`Nav - ${link.name}`, 'navbar');
+            trackSectionView(link.href.replace('#', ''));
+        }
     };
 
     return (
@@ -60,7 +65,7 @@ const Navbar = () => {
                             <a
                                 href={link.href}
                                 className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
-                                onClick={handleLinkClick}
+                                onClick={() => handleLinkClick(link)}
                             >
                                 {link.name}
                             </a>
@@ -85,7 +90,7 @@ const Navbar = () => {
                                 <a
                                     href={link.href}
                                     className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
-                                    onClick={handleLinkClick}
+                                    onClick={() => handleLinkClick(link)}
                                 >
                                     {link.name}
                                 </a>

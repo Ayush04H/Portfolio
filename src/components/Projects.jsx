@@ -3,6 +3,7 @@ import { ExternalLink, Github, X, Activity, Cpu, Server, ShieldCheck, Layers } f
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
+import { trackClick, trackOutbound, trackEvent } from '../utils/analytics';
 import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -118,7 +119,10 @@ const Projects = () => {
                             <div className="proj-body card-3d-inner">
                                 <div className="proj-header">
                                     <span className="proj-badge">{p.badge}</span>
-                                    <button className="arch-trigger" onClick={() => setSelected(p)}>
+                                    <button className="arch-trigger" onClick={() => {
+                                        trackClick('View Architecture', 'projects', { project_title: p.title });
+                                        setSelected(p);
+                                    }}>
                                         <Layers size={13} /> Arch
                                     </button>
                                 </div>
@@ -141,12 +145,20 @@ const Projects = () => {
 
                                 <div className="proj-links">
                                     {p.link && (
-                                        <a href={p.link} target="_blank" rel="noopener noreferrer" className="proj-link proj-link-primary">
+                                        <a href={p.link}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           className="proj-link proj-link-primary"
+                                           onClick={() => trackOutbound(p.link, `project_live_${p.title}`)}>
                                             <ExternalLink size={15} /> Live Demo
                                         </a>
                                     )}
                                     {p.github && (
-                                        <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj-link proj-link-ghost">
+                                        <a href={p.github}
+                                           target="_blank"
+                                           rel="noopener noreferrer"
+                                           className="proj-link proj-link-ghost"
+                                           onClick={() => trackOutbound(p.github, `project_github_${p.title}`)}>
                                             <Github size={15} /> Source
                                         </a>
                                     )}
@@ -191,12 +203,20 @@ const Projects = () => {
 
                         <div className="modal-footer">
                             {selected.link && (
-                                <a href={selected.link} target="_blank" rel="noopener noreferrer" className="btn btn-glow">
+                                <a href={selected.link}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   className="btn btn-glow"
+                                   onClick={() => trackOutbound(selected.link, `modal_live_${selected.title}`)}>
                                     <ExternalLink size={15} /> Live Demo
                                 </a>
                             )}
                             {selected.github && (
-                                <a href={selected.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                                <a href={selected.github}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   className="btn btn-outline"
+                                   onClick={() => trackOutbound(selected.github, `modal_github_${selected.title}`)}>
                                     <Github size={15} /> View Code
                                 </a>
                             )}

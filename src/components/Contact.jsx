@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
 import Contact3DCanvas from './canvas/Contact3DCanvas';
+import { trackFormSubmit, trackOutbound } from '../utils/analytics';
 import './Contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -91,13 +92,16 @@ const Contact = () => {
                 const result = await response.json();
                 if (result.success) {
                     setFormStatus('success');
+                    trackFormSubmit('contact_form', 'success', { subject: formData.subject });
                     setFormData({ name: '', email: '', subject: '', message: '' });
                 } else {
                     setFormStatus('error');
+                    trackFormSubmit('contact_form', 'error', { error_message: result.message || 'unknown_error' });
                     setErrors({ submit: result.message || 'Something went wrong. Please try again later.' });
                 }
             } catch (error) {
                 setFormStatus('error');
+                trackFormSubmit('contact_form', 'error', { error_message: error.message || 'network_error' });
                 setErrors({ submit: 'Network error. Please try again later.' });
             } finally {
                 setIsSubmitting(false);
@@ -164,7 +168,9 @@ const Contact = () => {
                                         <div className="contact-detail-text">
                                             <span className="contact-label">{info.label}</span>
                                             {info.link ? (
-                                                <a href={info.link} className="contact-value">
+                                                <a href={info.link}
+                                                   className="contact-value"
+                                                   onClick={() => trackOutbound(info.link, 'contact_panel_email')}>
                                                     {info.value}
                                                 </a>
                                             ) : (

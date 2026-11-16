@@ -1,5 +1,6 @@
 import React from 'react';
 import { Github, Linkedin, Mail, Code2, ArrowUp } from 'lucide-react';
+import { trackClick, trackOutbound } from '../utils/analytics';
 import './Footer.css';
 
 const Footer = () => {
@@ -46,7 +47,13 @@ const Footer = () => {
                         </p>
                         <div className="footer-social-row">
                             {socialLinks.map((s, i) => (
-                                <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label={s.label}>
+                                <a key={i}
+                                   href={s.href}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   className="footer-social-btn"
+                                   onClick={() => trackOutbound(s.href, `footer_social_${s.label.toLowerCase()}`)}
+                                   aria-label={s.label}>
                                     {s.icon}
                                 </a>
                             ))}
@@ -58,7 +65,10 @@ const Footer = () => {
                         <h4 className="footer-col-title">Navigation</h4>
                         <div className="footer-links-grid">
                             {quickLinks.map((link, i) => (
-                                <a key={i} href={link.href} className="footer-link">
+                                <a key={i}
+                                   href={link.href}
+                                   className="footer-link"
+                                   onClick={() => trackClick(`Footer - ${link.name}`, 'footer')}>
                                     <span className="footer-link-dot" />
                                     <span>{link.name}</span>
                                 </a>

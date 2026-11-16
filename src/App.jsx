@@ -13,6 +13,7 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ThreeMotionBackground from './components/canvas/ThreeMotionBackground';
+import { trackSectionView } from './utils/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,10 +49,28 @@ function App() {
         const anchors = document.querySelectorAll('a[href^="#"]');
         anchors.forEach(anchor => anchor.addEventListener('click', handleAnchorClick));
 
+        // GA4 Section View Tracking (fires once per section per visit)
+        const viewedSections = new Set();
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    if (id && !viewedSections.has(id)) {
+                        viewedSections.add(id);
+                        trackSectionView(id);
+                    }
+                }
+            });
+        }, { threshold: 0.35 });
+
+        const sectionElements = document.querySelectorAll('section[id]');
+        sectionElements.forEach(sec => sectionObserver.observe(sec));
+
         return () => {
             gsap.ticker.remove(rafCb);
             lenis.destroy();
             anchors.forEach(anchor => anchor.removeEventListener('click', handleAnchorClick));
+            sectionObserver.disconnect();
         };
     }, []);
 

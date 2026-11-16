@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Card3D from './Card3D';
 import Achievements3DCanvas from './canvas/Achievements3DCanvas';
 import Certifications3DCanvas from './canvas/Certifications3DCanvas';
+import { trackOutbound } from '../utils/analytics';
 import './Achievements.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -120,6 +121,7 @@ const Achievements = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="cert-link-wrapper"
+                                onClick={() => trackOutbound(cert.link, `cert_verify_${cert.issuer}_${cert.name}`)}
                             >
                                 <Card3D
                                     className="cert-card"

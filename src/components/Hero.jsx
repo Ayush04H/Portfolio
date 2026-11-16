@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ParticleCanvas from './canvas/ParticleCanvas';
 import Hero3DCanvas from './canvas/Hero3DCanvas';
+import { trackClick, trackOutbound } from '../utils/analytics';
 import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -123,10 +124,12 @@ const Hero = () => {
 
                     <div className="hero-cta">
                         <a href="#contact" className="btn btn-primary magnetic-btn"
+                           onClick={() => trackClick('Get In Touch', 'hero')}
                            onMouseMove={onMagMove} onMouseLeave={onMagLeave}>
                             Get In Touch
                         </a>
                         <a href="#projects" className="btn btn-secondary magnetic-btn"
+                           onClick={() => trackClick('View Projects', 'hero')}
                            onMouseMove={onMagMove} onMouseLeave={onMagLeave}>
                             View Projects
                         </a>
@@ -142,6 +145,7 @@ const Hero = () => {
                                target={href.startsWith('http') ? '_blank' : undefined}
                                rel="noopener noreferrer"
                                className="social-link magnetic-btn"
+                               onClick={() => trackOutbound(href, `hero_social_${label.toLowerCase()}`)}
                                onMouseMove={onMagMove} onMouseLeave={onMagLeave}
                                aria-label={label}>
                                 <Icon size={20} />
